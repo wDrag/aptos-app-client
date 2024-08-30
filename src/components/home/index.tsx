@@ -1,3 +1,9 @@
+import { WalletSelector } from '@/components/shared';
+
 export const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <div>
+      <WalletSelector />
+    </div>
+  );
 };

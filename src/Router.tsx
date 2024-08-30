@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router';
 import { createBrowserRouter } from 'react-router-dom';
 
+import { HomePage } from '@/components/home';
+
 const AppLayout = () => {
   return (
     <div className="flex flex-col h-screen">
@@ -16,7 +18,7 @@ export const appRouter = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <>{import.meta.env.ENV_API_URL || 'undefined'}</>,
+        element: <HomePage />,
       },
     ],
   },

@@ -14,3 +14,4 @@ jobs:
           upstream_repo: https://github.com/Aptos-NFT-Lending/aptos-app-client.git
           upstream_branch: main
           downstream_branch: main
+          token: ${{ secrets.GITHUB_TOKEN }}

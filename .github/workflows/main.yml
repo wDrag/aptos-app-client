@@ -1,0 +1,13 @@
+            - name: Rebase Upstream
+  # You may pin to the exact commit or the version.
+  # uses: imba-tjd/rebase-upstream-action@3727d50bfd7062fb794dcb81268451bdbe9ff5c0
+  uses: imba-tjd/rebase-upstream-action@0.5
+  with:
+    # <user>/<repo> or the full HTTP URL
+    upstream: Aptos-NFT-Lending/aptos-app-client
+    # The upstream branch that is rebased on
+    branch: main
+    # Greater than the number of commits the upstream made in a period
+    depth: # optional, default is 100
+    # Do the force push in this action
+    push: # optional, default is true

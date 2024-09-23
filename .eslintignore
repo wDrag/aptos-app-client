@@ -11,6 +11,8 @@ package.json
 tsconfig.json
 tsconfig.node.json
 vite.config.ts
+svgr.config.js
+svgr.d.ts
 
 # shadcn
 src/components/ui/*.tsx

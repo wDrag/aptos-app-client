@@ -43,3 +43,11 @@ export const MEGA_COIN: Record<string, `${string}::${string}::${string}`> = {
 };
 
 export const MEGA_COIN_DECIMALS = 6;
+
+export const CONTRACT_VIEWS: Record<string, `${string}::${string}::${string}`> = {
+  GET_ADDRESS_DEBT_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_address_debt_token`,
+  GET_ADDRESS_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_address_token`,
+  GET_OWNER_DEBT_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_owner_debt_token`,
+  GET_OWNER_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_owner_token`,
+  GET_TOKEN_DATA: `${CONTRACT_ADDRESS}::digital_asset::get_token_data`,
+};

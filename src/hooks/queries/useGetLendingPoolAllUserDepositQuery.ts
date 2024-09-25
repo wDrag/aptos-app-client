@@ -3,25 +3,18 @@ import { useQuery } from '@tanstack/react-query';
 import { getApiClient } from '@/apis';
 import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
-interface IGetTokenDataProps {
-  collectionName: string;
-  tokenId: number;
-}
-
-export const useGetTokenDataQuery = (props: IGetTokenDataProps) => {
-  const { collectionName, tokenId } = props;
-
+export const useGetLendingPoolAllUserDepositQuery = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.GET_TOKEN_DATA, collectionName, tokenId],
+    queryKey: [QUERY_KEYS.LP_GET_ALL_USER_DEPOSIT],
     queryFn: async () => {
       const client = getApiClient();
 
       const { data: response } = await client.post(
         '/view',
         {
-          function: CONTRACT_VIEWS.GET_TOKEN_DATA,
+          function: CONTRACT_VIEWS.LP_GET_ALL_USER_DEPOSIT,
           type_arguments: [null],
-          arguments: [collectionName, tokenId],
+          arguments: [],
         },
         {
           headers: {

@@ -3,25 +3,24 @@ import { useQuery } from '@tanstack/react-query';
 import { getApiClient } from '@/apis';
 import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
-interface IGetAddressDebtTokenProps {
-  collectionName: string;
-  tokenId: number;
+interface IGetNFTToAuctionProps {
+  index: number;
 }
 
-export const useGetAddressDebtTokenQuery = (props: IGetAddressDebtTokenProps) => {
-  const { collectionName, tokenId } = props;
+export const useGetEnglishAuctionNFTToAuctionQuery = (props: IGetNFTToAuctionProps) => {
+  const { index } = props;
 
   return useQuery({
-    queryKey: [QUERY_KEYS.GET_ADDRESS_DEBT_TOKEN, collectionName, tokenId],
+    queryKey: [QUERY_KEYS.EA_GET_NFT_TO_AUCTION, index],
     queryFn: async () => {
       const client = getApiClient();
 
       const { data: response } = await client.post(
         '/view',
         {
-          function: CONTRACT_VIEWS.GET_ADDRESS_DEBT_TOKEN,
+          function: CONTRACT_VIEWS.EA_GET_MINIMUM_BID,
           type_arguments: [null],
-          arguments: [collectionName, tokenId],
+          arguments: [index],
         },
         {
           headers: {

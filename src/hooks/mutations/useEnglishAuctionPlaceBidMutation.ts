@@ -7,16 +7,18 @@ import { useToast } from '@/components/ui/use-toast';
 import { CONTRACT_FUNCTIONS, MEGA_COIN, MEGA_COIN_DECIMALS } from '@/constants';
 import { toDecimals } from '@/lib';
 
-export const useLendingPoolWithdrawMutation = () => {
+export const useEnglishAuctionPlaceBidMutation = () => {
   const { account, signAndSubmitTransaction } = useWallet();
   const { toast } = useToast();
 
-  interface ILendingPoolWithdrawMutation {
-    amount: number;
+  interface IEnglishAuctionPlaceBidProps {
+    collectionName: string;
+    tokenId: number;
+    bidAmount: number;
   }
 
   return useMutation({
-    mutationFn: async (props: ILendingPoolWithdrawMutation) => {
+    mutationFn: async (props: IEnglishAuctionPlaceBidProps) => {
       if (!account) {
         toast({
           title: 'Error',
@@ -25,11 +27,11 @@ export const useLendingPoolWithdrawMutation = () => {
         return;
       }
 
-      const { amount } = props;
+      const { collectionName, tokenId, bidAmount } = props;
 
       const payload: InputGenerateTransactionPayloadData = {
-        function: CONTRACT_FUNCTIONS.LP_WITHDRAW,
-        functionArguments: [toDecimals(amount, MEGA_COIN_DECIMALS)],
+        function: CONTRACT_FUNCTIONS.EA_PLACE_BID,
+        functionArguments: [collectionName, tokenId, toDecimals(bidAmount, MEGA_COIN_DECIMALS)],
         typeArguments: [MEGA_COIN.MC_COIN_TYPE],
       };
 

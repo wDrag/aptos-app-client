@@ -3,25 +3,24 @@ import { useQuery } from '@tanstack/react-query';
 import { getApiClient } from '@/apis';
 import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
-interface IGetOwnerDebtTokenProps {
-  collectionName: string;
-  tokenId: number;
+interface IGetLenderInformationProps {
+  lenderAddress: string;
 }
 
-export const useGetOwnerDebtTokenQuery = (props: IGetOwnerDebtTokenProps) => {
-  const { collectionName, tokenId } = props;
+export const useGetLendingPoolLenderInformationQuery = (props: IGetLenderInformationProps) => {
+  const { lenderAddress } = props;
 
   return useQuery({
-    queryKey: [QUERY_KEYS.GET_OWNER_DEBT_TOKEN, collectionName, tokenId],
+    queryKey: [QUERY_KEYS.LP_GET_LENDER_INFORMATION],
     queryFn: async () => {
       const client = getApiClient();
 
       const { data: response } = await client.post(
         '/view',
         {
-          function: CONTRACT_VIEWS.GET_OWNER_DEBT_TOKEN,
+          function: CONTRACT_VIEWS.LP_GET_LENDER_INFORMATION,
           type_arguments: [null],
-          arguments: [collectionName, tokenId],
+          arguments: [lenderAddress],
         },
         {
           headers: {

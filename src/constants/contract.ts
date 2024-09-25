@@ -1,6 +1,8 @@
 export const CONTRACT_ADDRESS =
   '0x4b6e221646feeff6eb0fdb9e62e716a60e0e28eee5c35310f4b886c5e4911dd2';
 
+export const ORACLE_ADDRESS = '0xd1c95344a35f6331685a0537fe31d3b63f96c9bf89b08cd9fdd9b7fd30b3a819';
+
 export const CONTRACT_FUNCTIONS: Record<string, `${string}::${string}::${string}`> = {
   DA_CREATE_COLLECTION: `${CONTRACT_ADDRESS}::digital_asset::create_collection`,
   DA_MINT_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::mint_token`,
@@ -45,9 +47,33 @@ export const MEGA_COIN: Record<string, `${string}::${string}::${string}`> = {
 export const MEGA_COIN_DECIMALS = 6;
 
 export const CONTRACT_VIEWS: Record<string, `${string}::${string}::${string}`> = {
-  GET_ADDRESS_DEBT_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_address_debt_token`,
-  GET_ADDRESS_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_address_token`,
-  GET_OWNER_DEBT_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_owner_debt_token`,
-  GET_OWNER_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_owner_token`,
-  GET_TOKEN_DATA: `${CONTRACT_ADDRESS}::digital_asset::get_token_data`,
+  DA_GET_ADDRESS_DEBT_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_address_debt_token`,
+  DA_GET_ADDRESS_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_address_token`,
+  DA_GET_OWNER_DEBT_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_owner_debt_token`,
+  DA_GET_OWNER_TOKEN: `${CONTRACT_ADDRESS}::digital_asset::get_owner_token`,
+  DA_GET_TOKEN_DATA: `${CONTRACT_ADDRESS}::digital_asset::get_token_data`,
+  EA_GET_CHECK_IF_FIRST_BID: `${CONTRACT_ADDRESS}::english_auction::check_if_first_bid`,
+  EA_GET_BID_INFORMATION: `${CONTRACT_ADDRESS}::english_auction::get_bid_information`,
+  EA_GET_MINIMUM_BID: `${CONTRACT_ADDRESS}::english_auction::get_minimum_bid`,
+  EA_GET_NFT_TO_AUCTION: `${CONTRACT_ADDRESS}::english_auction::get_nft_to_auction`,
+  EA_GET_NUMBER_NFT_TO_AUCTION: `${CONTRACT_ADDRESS}::english_auction::get_number_nft_to_auction`,
+  EX_GET_INSTANTLY_NFT: `${CONTRACT_ADDRESS}::exchange::get_instantly_nft`,
+  EX_GET_NFT_PRICE: `${CONTRACT_ADDRESS}::exchange::get_nft_price`,
+  EX_GET_NUMBER_OFFERS: `${CONTRACT_ADDRESS}::exchange::get_number_offers`,
+  EX_GET_NUMBERS_INSTANTLY_NFT: `${CONTRACT_ADDRESS}::exchange::get_numbers_instantly_nft`,
+  EX_GET_NUMBERS_OFFERS_NFT: `${CONTRACT_ADDRESS}::exchange::get_numbers_offers_nft`,
+  EX_GET_OFFER: `${CONTRACT_ADDRESS}::exchange::get_offer`,
+  EX_GET_OFFER_NFT: `${CONTRACT_ADDRESS}::exchange::get_offer_nft`,
+  LP_GET_ALL_USER_DEPOSIT: `${CONTRACT_ADDRESS}::lending_pool::get_all_user_deposit`,
+  LP_GET_BORROWER_INFORMATION: `${CONTRACT_ADDRESS}::lending_pool::get_borrower_information`,
+  LP_GET_COLLATERAL: `${CONTRACT_ADDRESS}::lending_pool::get_collateral`,
+  LP_GET_COLLATERAL_NUMBERS: `${CONTRACT_ADDRESS}::lending_pool::get_collateral_numbers`,
+  LP_GET_LENDER_INFORMATION: `${CONTRACT_ADDRESS}::lending_pool::get_lender_information`,
+  LP_GET_MARKET_CONFIGURATION: `${CONTRACT_ADDRESS}::lending_pool::get_market_configuration`,
+};
+
+export const ORACLE_FUNCTIONS: Record<string, `${string}::${string}::${string}`> = {
+  ORACLE_GET_FLOOR_PRICE: `${ORACLE_ADDRESS}::oracle::get_floor_price`,
+  ORACLE_GET_FULL_PAYMENT_PRICE: `${ORACLE_ADDRESS}::oracle::get_full_payment_price`,
+  ORACLE_GET_DOWN_PAYMENT_PRICE: `${ORACLE_ADDRESS}::oracle::get_down_payment_price`,
 };

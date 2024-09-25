@@ -4,19 +4,19 @@ import { useMutation } from '@tanstack/react-query';
 
 import { aptosClient } from '@/aptos';
 import { useToast } from '@/components/ui/use-toast';
-import { CONTRACT_FUNCTIONS, MEGA_COIN, MEGA_COIN_DECIMALS } from '@/constants';
-import { toDecimals } from '@/lib';
+import { CONTRACT_FUNCTIONS, MEGA_COIN } from '@/constants';
 
-export const useLendingPoolWithdrawMutation = () => {
+export const useEnglishAuctionDeclareWinnerMutation = () => {
   const { account, signAndSubmitTransaction } = useWallet();
   const { toast } = useToast();
 
-  interface ILendingPoolWithdrawMutation {
-    amount: number;
+  interface IEnglishAuctionDeclareWinnerProps {
+    collectionName: string;
+    tokenId: number;
   }
 
   return useMutation({
-    mutationFn: async (props: ILendingPoolWithdrawMutation) => {
+    mutationFn: async (props: IEnglishAuctionDeclareWinnerProps) => {
       if (!account) {
         toast({
           title: 'Error',
@@ -25,11 +25,11 @@ export const useLendingPoolWithdrawMutation = () => {
         return;
       }
 
-      const { amount } = props;
+      const { collectionName, tokenId } = props;
 
       const payload: InputGenerateTransactionPayloadData = {
-        function: CONTRACT_FUNCTIONS.LP_WITHDRAW,
-        functionArguments: [toDecimals(amount, MEGA_COIN_DECIMALS)],
+        function: CONTRACT_FUNCTIONS.EA_DECLARE_WINNER,
+        functionArguments: [collectionName, tokenId],
         typeArguments: [MEGA_COIN.MC_COIN_TYPE],
       };
 

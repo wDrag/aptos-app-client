@@ -4,19 +4,22 @@ import { useMutation } from '@tanstack/react-query';
 
 import { aptosClient } from '@/aptos';
 import { useToast } from '@/components/ui/use-toast';
-import { CONTRACT_FUNCTIONS, MEGA_COIN, MEGA_COIN_DECIMALS } from '@/constants';
+import { CONTRACT_FUNCTIONS, MEGA_COIN_DECIMALS } from '@/constants';
 import { toDecimals } from '@/lib';
 
-export const useLendingPoolWithdrawMutation = () => {
+export const useEnglishAuctionAddNFTToAuctionMutation = () => {
   const { account, signAndSubmitTransaction } = useWallet();
   const { toast } = useToast();
 
-  interface ILendingPoolWithdrawMutation {
-    amount: number;
+  interface IEnglishAuctionAddNFTToAuctionProps {
+    ownerAddress: string;
+    collectionName: string;
+    tokenId: number;
+    currentDebt: number;
   }
 
   return useMutation({
-    mutationFn: async (props: ILendingPoolWithdrawMutation) => {
+    mutationFn: async (props: IEnglishAuctionAddNFTToAuctionProps) => {
       if (!account) {
         toast({
           title: 'Error',
@@ -25,12 +28,16 @@ export const useLendingPoolWithdrawMutation = () => {
         return;
       }
 
-      const { amount } = props;
+      const { ownerAddress, collectionName, tokenId, currentDebt } = props;
 
       const payload: InputGenerateTransactionPayloadData = {
-        function: CONTRACT_FUNCTIONS.LP_WITHDRAW,
-        functionArguments: [toDecimals(amount, MEGA_COIN_DECIMALS)],
-        typeArguments: [MEGA_COIN.MC_COIN_TYPE],
+        function: CONTRACT_FUNCTIONS.EA_ADD_NFT_TO_AUCTION,
+        functionArguments: [
+          ownerAddress,
+          collectionName,
+          tokenId,
+          toDecimals(currentDebt, MEGA_COIN_DECIMALS),
+        ],
       };
 
       const response = await signAndSubmitTransaction({

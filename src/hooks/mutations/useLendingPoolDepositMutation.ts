@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { aptosClient } from '@/aptos';
 import { useToast } from '@/components/ui/use-toast';
 import { CONTRACT_FUNCTIONS, MEGA_COIN, MEGA_COIN_DECIMALS } from '@/constants';
+import { toDecimals } from '@/lib';
 
 export const useLendingPoolDepositMutation = () => {
   const { account, signAndSubmitTransaction } = useWallet();
@@ -28,7 +29,7 @@ export const useLendingPoolDepositMutation = () => {
 
       const payload: InputGenerateTransactionPayloadData = {
         function: CONTRACT_FUNCTIONS.LP_DEPOSIT,
-        functionArguments: [amount * MEGA_COIN_DECIMALS],
+        functionArguments: [toDecimals(amount, MEGA_COIN_DECIMALS)],
         typeArguments: [MEGA_COIN.MC_COIN_TYPE],
       };
 

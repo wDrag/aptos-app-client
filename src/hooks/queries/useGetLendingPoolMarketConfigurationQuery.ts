@@ -3,25 +3,18 @@ import { useQuery } from '@tanstack/react-query';
 import { getApiClient } from '@/apis';
 import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
-interface IGetAddressTokenProps {
-  collectionName: string;
-  tokenId: number;
-}
-
-export const useGetAddressTokenQuery = (props: IGetAddressTokenProps) => {
-  const { collectionName, tokenId } = props;
-
+export const useGetLendingPoolMarketConfigurationQuery = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.GET_ADDRESS_TOKEN, collectionName, tokenId],
+    queryKey: [QUERY_KEYS.LP_GET_MARKET_CONFIGURATION],
     queryFn: async () => {
       const client = getApiClient();
 
       const { data: response } = await client.post(
         '/view',
         {
-          function: CONTRACT_VIEWS.GET_ADDRESS_TOKEN,
+          function: CONTRACT_VIEWS.LP_GET_MARKET_CONFIGURATION,
           type_arguments: [null],
-          arguments: [collectionName, tokenId],
+          arguments: [],
         },
         {
           headers: {

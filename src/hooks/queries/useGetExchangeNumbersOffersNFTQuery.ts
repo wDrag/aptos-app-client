@@ -3,25 +3,18 @@ import { useQuery } from '@tanstack/react-query';
 import { getApiClient } from '@/apis';
 import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
-interface IGetOwnerTokenProps {
-  collectionName: string;
-  tokenId: number;
-}
-
-export const useGetOwnerTokenQuery = (props: IGetOwnerTokenProps) => {
-  const { collectionName, tokenId } = props;
-
+export const useGetExchangeNumbersOffersNFTQuery = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.GET_OWNER_TOKEN, collectionName, tokenId],
+    queryKey: [QUERY_KEYS.EX_GET_NUMBERS_OFFERS_NFT],
     queryFn: async () => {
       const client = getApiClient();
 
       const { data: response } = await client.post(
         '/view',
         {
-          function: CONTRACT_VIEWS.GET_OWNER_TOKEN,
+          function: CONTRACT_VIEWS.EX_GET_NUMBERS_OFFERS_NFT,
           type_arguments: [null],
-          arguments: [collectionName, tokenId],
+          arguments: [],
         },
         {
           headers: {

@@ -7,18 +7,19 @@ import { PATH } from '@/constants';
 
 const HomePage = lazy(() => import('@/pages/Home'));
 const LendingPage = lazy(() => import('@/pages/Lending'));
+const ExchangeRootPage = lazy(() => import('@/pages/ExchangeRoot'));
 const ExchangeBuyPage = lazy(() => import('@/pages/ExchangeBuy'));
 const ExchangeSellPage = lazy(() => import('@/pages/ExchangeSell'));
 const DownpaymentPage = lazy(() => import('@/pages/Downpayment'));
 const AuctionPage = lazy(() => import('@/pages/Auction'));
-
+const LoadingPage = lazy(() => import('@/pages/Loading'));
 const NullPage = lazy(() => import('@/pages/Null'));
 
 const AppLayout = () => {
   return (
     <div className="flex h-screen w-full flex-col">
       <Header />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingPage />}>
         <Outlet />
       </Suspense>
     </div>
@@ -37,6 +38,10 @@ export const appRouter = createBrowserRouter([
       {
         path: PATH.LENDING,
         element: <LendingPage />,
+      },
+      {
+        path: PATH.EXCHANGE.ROOT,
+        element: <ExchangeRootPage />,
       },
       {
         path: PATH.EXCHANGE.BUY,

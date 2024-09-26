@@ -1,11 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 import Logo from '@/assets/example.svg';
 import { WalletSelector } from '@/components/shared';
-import { PATH } from '@/constants';
-import { cn } from '@/lib';
-
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,7 +10,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '../ui/navigation-menu';
+} from '@/components/ui/navigation-menu';
+import { Separator } from '@/components/ui/separator';
+import { PATH } from '@/constants';
+import { cn } from '@/lib';
 
 export const Header = () => {
   interface IMenuItems {
@@ -31,7 +31,7 @@ export const Header = () => {
     },
     {
       name: 'Exchange',
-      path: PATH.EXCHANGE.BUY,
+      path: PATH.EXCHANGE.ROOT,
       key: 'exchange',
       children: [
         {
@@ -64,20 +64,37 @@ export const Header = () => {
     children?: React.ReactNode;
   }
 
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const isActive = (path?: string) => {
+    if (!path) return false;
+    return location.pathname.startsWith(path);
+  };
+
   const ListItem = React.forwardRef<React.ElementRef<'a'>, ListItemProps>(
-    ({ className, title, children, ...props }, ref) => {
+    ({ className, title, children, href, ...props }, ref) => {
       return (
-        <li>
+        <li className="bg-[#2E2733]">
           <NavigationMenuLink asChild>
             <a
               ref={ref}
               className={cn(
-                'block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                'block select-none p-3 leading-none no-underline outline-none transition-colors group',
                 className
               )}
+              href={href}
               {...props}
             >
-              <div className="text-base font-medium leading-none">{title}</div>
+              <div
+                className={cn(
+                  'text-base font-medium leading-none text-white/80 group-hover:text-white/60 group-focus:text-white/60',
+                  isActive(href) && 'text-[#A66AFE]'
+                )}
+              >
+                {title}
+              </div>
               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
             </a>
           </NavigationMenuLink>
@@ -87,34 +104,36 @@ export const Header = () => {
   );
   ListItem.displayName = 'ListItem';
 
-  const navigate = useNavigate();
-
   return (
     <header className="fixed z-50 flex h-20 w-full flex-row items-center justify-between bg-transparent p-8">
       <div className="flex items-center justify-between gap-4">
-        <img src={Logo} alt="Logo" className="size-10" />
-        <span className="text-2xl">Megaloandon</span>
+        <img src={Logo} alt="Logo" className="size-16 rounded-full" />
+        <span className="text-3xl font-bold text-[#A66AFE]/90">Megaloandon</span>
       </div>
-      <NavigationMenu className="[&_.absolute]:translate-x-[6.75rem]">
-        <NavigationMenuList>
+      <NavigationMenu className="[&_.absolute]:translate-x-[9.75rem]">
+        <NavigationMenuList className="flex gap-12">
           {MenuItems.map((item) => {
             return (
               <NavigationMenuItem key={item.key}>
                 <NavigationMenuTrigger
-                  className="[&_.lucide-chevron-down]:hidden"
+                  className="bg-transparent py-6 hover:bg-white/5 focus:bg-transparent [&_.lucide-chevron-down]:hidden"
                   onClick={() => {
                     navigate(item.path);
                   }}
                 >
-                  <NavigationMenuLink className="text-xl">{item.name}</NavigationMenuLink>
+                  <NavigationMenuLink
+                    className={cn('text-xl text-white/80', isActive(item.path) && 'text-[#A66AFE]')}
+                  >
+                    {item.name}
+                  </NavigationMenuLink>
                 </NavigationMenuTrigger>
                 {item.children && (
                   <NavigationMenuContent className="flex w-full items-center">
-                    <ul className="flex min-w-32 flex-col gap-3 p-4">
+                    <ul className="flex min-w-32 flex-col gap-3 bg-[#2E2733] p-3">
                       {item.children.map((child, index) => (
                         <>
                           {index !== 0 && (
-                            <div className="w-full border-t border-muted-foreground" />
+                            <Separator orientation="horizontal" className="bg-white" />
                           )}
                           <ListItem key={child.key} title={child.name} href={child.path} />
                         </>

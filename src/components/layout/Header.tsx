@@ -56,6 +56,11 @@ export const Header = () => {
       path: PATH.AUCTION,
       key: 'auction',
     },
+    {
+      name: 'Docs',
+      path: PATH.DOCUMENTATION,
+      key: 'documentation',
+    },
   ];
 
   interface ListItemProps extends React.ComponentPropsWithoutRef<'a'> {
@@ -81,7 +86,7 @@ export const Header = () => {
             <a
               ref={ref}
               className={cn(
-                'block select-none p-3 leading-none no-underline outline-none transition-colors group',
+                'block select-none leading-none no-underline outline-none transition-colors group',
                 className
               )}
               href={href}
@@ -89,7 +94,7 @@ export const Header = () => {
             >
               <div
                 className={cn(
-                  'text-base font-medium leading-none text-white/80 group-hover:text-white/60 group-focus:text-white/60',
+                  'text-sm font-medium leading-none text-white/80 group-hover:text-white/60 group-focus:text-white/60',
                   isActive(href) && 'text-[#A66AFE]'
                 )}
               >
@@ -110,8 +115,8 @@ export const Header = () => {
         <img src={Logo} alt="Logo" className="size-16 rounded-full" />
         <span className="text-3xl font-bold text-[#A66AFE]/90">Megaloandon</span>
       </div>
-      <NavigationMenu className="[&_.absolute]:translate-x-[9.75rem]">
-        <NavigationMenuList className="flex gap-12">
+      <NavigationMenu className="[&_.absolute]:translate-x-[7.75rem]">
+        <NavigationMenuList className="flex gap-4">
           {MenuItems.map((item) => {
             return (
               <NavigationMenuItem key={item.key}>
@@ -129,7 +134,7 @@ export const Header = () => {
                 </NavigationMenuTrigger>
                 {item.children && (
                   <NavigationMenuContent className="flex w-full items-center">
-                    <ul className="flex min-w-32 flex-col gap-3 bg-[#2E2733] p-3">
+                    <ul className="flex min-w-32 flex-col gap-2 bg-[#2E2733] p-3">
                       {item.children.map((child, index) => (
                         <>
                           {index !== 0 && (

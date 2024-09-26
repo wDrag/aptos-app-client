@@ -61,33 +61,40 @@ export function WalletSelector(walletSortingOptions: WalletSortingOptions) {
   return connected ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button>{account?.ansName || truncateAddress(account?.address) || 'Unknown'}</Button>
+        <Button className="w-48 bg-[#32CD32] p-6 text-lg text-white/95 hover:bg-[#32CD32]/70 focus:bg-[#32CD32]/70">
+          {account?.ansName || truncateAddress(account?.address) || 'Unknown'}
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onSelect={copyAddress} className="gap-2">
-          <Copy className="h-4 w-4" /> Copy address
+      <DropdownMenuContent className="bg-[#2E2733]" align="start">
+        <DropdownMenuItem onSelect={copyAddress} className="cursor-pointer gap-2">
+          <Copy className="size-5" />
+          <span className="text-base">Copy address</span>
         </DropdownMenuItem>
         {wallet && isAptosConnectWallet(wallet) && (
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <a
               href={APTOS_CONNECT_ACCOUNT_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex gap-2"
             >
-              <User className="h-4 w-4" /> Account
+              <User className="size-5" />
+              <span className="text-base">Account</span>
             </a>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem onSelect={disconnect} className="gap-2">
-          <LogOut className="h-4 w-4" /> Disconnect
+        <DropdownMenuItem onSelect={disconnect} className="cursor-pointer gap-2">
+          <LogOut className="size-5" />
+          <span className="text-base">Disconnect</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button>Connect a Wallet</Button>
+        <Button className="rounded-2xl border-2  border-[#CFF500] bg-black bg-none px-8 py-2 text-lg text-[#CFF500] hover:text-white">
+          Connect a Wallet
+        </Button>
       </DialogTrigger>
       <ConnectWalletDialog close={closeDialog} {...walletSortingOptions} />
     </Dialog>
@@ -129,9 +136,9 @@ function ConnectWalletDialog({ close, ...walletSortingOptions }: ConnectWalletDi
             {aptosConnectWallets.map((wallet) => (
               <AptosConnectWalletRow key={wallet.name} wallet={wallet} onConnect={close} />
             ))}
-            <p className="flex gap-1 justify-center items-center text-muted-foreground text-sm">
+            <p className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
               Learn more about{' '}
-              <AboutAptosConnect.Trigger className="flex gap-1 py-3 items-center text-foreground">
+              <AboutAptosConnect.Trigger className="flex items-center gap-1 py-3 text-foreground">
                 Aptos Connect <ArrowRight size={16} />
               </AboutAptosConnect.Trigger>
             </p>
@@ -141,7 +148,7 @@ function ConnectWalletDialog({ close, ...walletSortingOptions }: ConnectWalletDi
                 <AptosPrivacyPolicy.Link className="text-muted-foreground underline underline-offset-4" />
                 <span className="text-muted-foreground">.</span>
               </p>
-              <AptosPrivacyPolicy.PoweredBy className="flex gap-1.5 items-center text-xs leading-5 text-muted-foreground" />
+              <AptosPrivacyPolicy.PoweredBy className="flex items-center gap-1.5 text-xs leading-5 text-muted-foreground" />
             </AptosPrivacyPolicy>
             <div className="flex items-center gap-3 pt-4 text-muted-foreground">
               <div className="h-px w-full bg-secondary" />
@@ -185,10 +192,10 @@ function WalletRow({ wallet, onConnect }: WalletRowProps) {
     <WalletItem
       wallet={wallet}
       onConnect={onConnect}
-      className="flex items-center justify-between px-4 py-3 gap-4 border rounded-md"
+      className="flex items-center justify-between gap-4 rounded-md border px-4 py-3"
     >
       <div className="flex items-center gap-4">
-        <WalletItem.Icon className="h-6 w-6" />
+        <WalletItem.Icon className="size-6" />
         <WalletItem.Name className="text-base font-normal" />
       </div>
       {isInstallRequired(wallet) ? (
@@ -209,7 +216,7 @@ function AptosConnectWalletRow({ wallet, onConnect }: WalletRowProps) {
     <WalletItem wallet={wallet} onConnect={onConnect}>
       <WalletItem.ConnectButton asChild>
         <Button size="lg" variant="outline" className="w-full gap-4">
-          <WalletItem.Icon className="h-5 w-5" />
+          <WalletItem.Icon className="size-5" />
           <WalletItem.Name className="text-base font-normal" />
         </Button>
       </WalletItem.ConnectButton>
@@ -224,17 +231,17 @@ function renderEducationScreen(screen: AboutAptosConnectEducationScreen) {
         <Button variant="ghost" size="icon" onClick={screen.cancel}>
           <ArrowLeft />
         </Button>
-        <DialogTitle className="leading-snug text-base text-center">
+        <DialogTitle className="text-center text-base leading-snug">
           About Aptos Connect
         </DialogTitle>
       </DialogHeader>
 
-      <div className="flex h-[162px] pb-3 items-end justify-center">
+      <div className="flex h-[162px] items-end justify-center pb-3">
         <screen.Graphic />
       </div>
-      <div className="flex flex-col gap-2 text-center pb-4">
+      <div className="flex flex-col gap-2 pb-4 text-center">
         <screen.Title className="text-xl" />
-        <screen.Description className="text-sm text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a]:text-foreground" />
+        <screen.Description className="text-sm text-muted-foreground [&>a]:text-foreground [&>a]:underline [&>a]:underline-offset-4" />
       </div>
 
       <div className="grid grid-cols-3 items-center">
@@ -244,7 +251,7 @@ function renderEducationScreen(screen: AboutAptosConnectEducationScreen) {
         <div className="flex items-center gap-2 place-self-center">
           {screen.screenIndicators.map((ScreenIndicator, i) => (
             <ScreenIndicator key={i} className="py-4">
-              <div className="h-0.5 w-6 transition-colors bg-muted [[data-active]>&]:bg-foreground" />
+              <div className="h-0.5 w-6 bg-muted transition-colors [[data-active]>&]:bg-foreground" />
             </ScreenIndicator>
           ))}
         </div>

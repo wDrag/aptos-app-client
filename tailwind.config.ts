@@ -1,5 +1,3 @@
-import type { Config } from 'tailwindcss';
-
 const config = {
   darkMode: ['class'],
   content: [
@@ -25,11 +23,11 @@ const config = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
+          DEFAULT: '#A66AFE',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
+          DEFAULT: '#D1F608',
           foreground: 'hsl(var(--secondary-foreground))',
         },
         destructive: {
@@ -49,7 +47,7 @@ const config = {
           foreground: 'hsl(var(--popover-foreground))',
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
+          DEFAULT: '#2D2E2F',
           foreground: 'hsl(var(--card-foreground))',
         },
       },
@@ -74,7 +72,6 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('tailwindcss-safe-area')],
-} satisfies Config;
+};
 
 export default config;

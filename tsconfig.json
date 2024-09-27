@@ -27,7 +27,8 @@
     "paths": {
       "@/*": ["src/*"],
       "@/public/*": ["public/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src", "vite.config.ts", "tailwind.config.ts", "svgr.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/vite-env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

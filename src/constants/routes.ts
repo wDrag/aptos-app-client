@@ -8,4 +8,5 @@ export const PATH = {
   },
   DOWNPAYMENT_BUY: '/downpayment',
   AUCTION: '/auction',
+  DOCUMENTATION: '/docs',
 };

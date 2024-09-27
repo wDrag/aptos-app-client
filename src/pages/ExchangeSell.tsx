@@ -45,7 +45,15 @@ const ExchangeSellPage = () => {
     {
       collectionName: 'Froggy',
       tokenName: 'Tree Froggy',
-      tokenId: 5,
+      tokenId: 6,
+      tokenUri:
+        'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
+      instantlySalePrice: 8,
+    },
+    {
+      collectionName: 'Froggy',
+      tokenName: 'Tree Froggy',
+      tokenId: 7,
       tokenUri:
         'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
       instantlySalePrice: 8,
@@ -60,11 +68,10 @@ const ExchangeSellPage = () => {
           Sell your <span className="text-[#D1F608]">NFT</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-12">
+        <div className="grid grid-cols-4 gap-12">
           {NFTList.map((nft) => (
             <SellingNFTCard
               key={nft.tokenId + nft.collectionName}
-              collectionName={nft.collectionName}
               tokenName={nft.tokenName}
               tokenId={nft.tokenId}
               tokenUri={nft.tokenUri}

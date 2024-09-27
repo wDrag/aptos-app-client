@@ -13,6 +13,7 @@ const ExchangeSellPage = lazy(() => import('@/pages/ExchangeSell'));
 const DownPaymentPage = lazy(() => import('@/pages/DownPayment'));
 const AuctionPage = lazy(() => import('@/pages/Auction'));
 const LoadingPage = lazy(() => import('@/pages/Loading'));
+const DocsPage = lazy(() => import('@/pages/Docs'));
 const NullPage = lazy(() => import('@/pages/Null'));
 
 const AppLayout = () => {
@@ -58,6 +59,10 @@ export const appRouter = createBrowserRouter([
       {
         path: PATH.AUCTION,
         element: <AuctionPage />,
+      },
+      {
+        path: PATH.DOCUMENTATION,
+        element: <DocsPage />,
       },
       {
         path: '*',

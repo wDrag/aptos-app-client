@@ -8,8 +8,8 @@ interface NFT {
   tokenName: string;
   tokenId: number;
   tokenUri: string;
-  downPaymentPrice: number;
-  fullPaymentPrice: number;
+  downPaymentPrice?: number;
+  fullPaymentPrice?: number;
 }
 
 const ExchangeBuyPage = () => {
@@ -20,8 +20,6 @@ const ExchangeBuyPage = () => {
       tokenId: 1,
       tokenUri:
         'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-      downPaymentPrice: 8,
-      fullPaymentPrice: 20,
     },
     {
       collectionName: 'Froggy',
@@ -29,8 +27,6 @@ const ExchangeBuyPage = () => {
       tokenId: 2,
       tokenUri:
         'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-      downPaymentPrice: 8,
-      fullPaymentPrice: 20,
     },
     {
       collectionName: 'Froggy',
@@ -38,8 +34,6 @@ const ExchangeBuyPage = () => {
       tokenId: 3,
       tokenUri:
         'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-      downPaymentPrice: 8,
-      fullPaymentPrice: 20,
     },
     {
       collectionName: 'Froggy',
@@ -47,8 +41,6 @@ const ExchangeBuyPage = () => {
       tokenId: 4,
       tokenUri:
         'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-      downPaymentPrice: 8,
-      fullPaymentPrice: 20,
     },
     {
       collectionName: 'Froggy',
@@ -56,8 +48,13 @@ const ExchangeBuyPage = () => {
       tokenId: 5,
       tokenUri:
         'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-      downPaymentPrice: 8,
-      fullPaymentPrice: 20,
+    },
+    {
+      collectionName: 'Froggy',
+      tokenName: 'Tree Froggy',
+      tokenId: 6,
+      tokenUri:
+        'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
     },
   ];
 
@@ -161,33 +158,29 @@ const ExchangeBuyPage = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="buyNow">
-            <div className="grid grid-cols-3 gap-12">
+            <div className="grid grid-cols-4 gap-12">
               {view === 'buyNow' &&
                 BuyNowNFTList.map((nft) => (
                   <BuyingInstantlyNFTCard
                     key={nft.tokenId + nft.collectionName}
-                    collectionName={nft.collectionName}
                     tokenName={nft.tokenName}
                     tokenId={nft.tokenId}
                     tokenUri={nft.tokenUri}
-                    downPaymentPrice={nft.downPaymentPrice}
-                    fullPaymentPrice={nft.fullPaymentPrice}
+                    downPaymentPrice={nft.downPaymentPrice ?? 0}
+                    fullPaymentPrice={nft.fullPaymentPrice ?? 0}
                   />
                 ))}
             </div>
           </TabsContent>
           <TabsContent value="allItems">
-            <div className="grid grid-cols-3 gap-12">
+            <div className="grid grid-cols-4 gap-12">
               {view === 'allItems' &&
                 AllItemsNFTList.map((nft) => (
                   <OfferNFTCard
                     key={nft.tokenId}
-                    collectionName={nft.collectionName}
                     tokenName={nft.tokenName}
                     tokenId={nft.tokenId}
                     tokenUri={nft.tokenUri}
-                    downPaymentPrice={nft.downPaymentPrice}
-                    fullPaymentPrice={nft.fullPaymentPrice}
                   />
                 ))}
             </div>

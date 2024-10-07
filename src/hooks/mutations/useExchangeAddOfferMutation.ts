@@ -13,7 +13,7 @@ export const useExchangeAddOfferMutation = () => {
 
   interface IExchangeAddOfferMutation {
     collectionName: string;
-    tokenId: number;
+    tokenId: string;
     offerPrice: number;
     offerTime: number;
   }
@@ -41,7 +41,7 @@ export const useExchangeAddOfferMutation = () => {
         typeArguments: [MEGA_COIN.MC_COIN_TYPE],
       };
 
-      const response = await signAndSubmitTransaction({
+      const { data: response } = await signAndSubmitTransaction({
         sender: account.address,
         data: payload,
       });

@@ -5,7 +5,7 @@ import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetBidInformationProps {
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export const useGetEnglishAuctionBidInformationQuery = (props: IGetBidInformationProps) => {
@@ -20,7 +20,7 @@ export const useGetEnglishAuctionBidInformationQuery = (props: IGetBidInformatio
         '/view',
         {
           function: CONTRACT_VIEWS.EA_GET_CHECK_IF_FIRST_BID,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [collectionName, tokenId],
         },
         {

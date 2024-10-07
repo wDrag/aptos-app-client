@@ -13,7 +13,7 @@ export const useGetLendingPoolMarketConfigurationQuery = () => {
         '/view',
         {
           function: CONTRACT_VIEWS.LP_GET_MARKET_CONFIGURATION,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [],
         },
         {

@@ -178,7 +178,7 @@ const HomePage = () => {
           <div className="col-span-3 rounded-lg border border-primary bg-card p-12 shadow-[0px_0px_5px_5px_rgba(0.3,0.3,0.3,0.3)] shadow-primary">
             <p className="text-xl text-white">
               To become the <span className="font-bold text-primary">leading platform</span> for
-              <span className="font-bold">NFT-backed loans</span>
+              <span className="font-bold"> NFT-backed loans</span>
             </p>
           </div>
           <div className="col-span-2"></div>
@@ -187,7 +187,7 @@ const HomePage = () => {
           <div className="col-span-2 rounded-lg border border-primary bg-card p-12 shadow-[0px_0px_5px_5px_rgba(0.3,0.3,0.3,0.3)] shadow-primary">
             <p className="text-xl text-white">
               Unlock the <span className="font-bold text-primary">full potential </span> off
-              <span className="font-bold">NFTs</span>
+              <span className="font-bold"> NFTs</span>
             </p>
           </div>
         </div>

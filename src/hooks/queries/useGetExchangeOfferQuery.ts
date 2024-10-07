@@ -2,11 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getApiClient } from '@/apis';
 import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
+import { toU64 } from '@/lib';
 
 interface IGetExchangeOfferProps {
   collectionName: string;
-  tokenId: number;
-  offerId: number;
+  tokenId: string;
+  offerId: string;
 }
 
 export const useGetExchangeOfferQuery = (props: IGetExchangeOfferProps) => {
@@ -21,8 +22,8 @@ export const useGetExchangeOfferQuery = (props: IGetExchangeOfferProps) => {
         '/view',
         {
           function: CONTRACT_VIEWS.EX_GET_OFFER,
-          type_arguments: [null],
-          arguments: [collectionName, tokenId, offerId],
+          type_arguments: [],
+          arguments: [collectionName, tokenId, toU64(offerId)],
         },
         {
           headers: {

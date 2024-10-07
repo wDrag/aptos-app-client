@@ -5,7 +5,7 @@ import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetOwnerDebtTokenProps {
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export const useGetDigitalAssetOwnerDebtTokenQuery = (props: IGetOwnerDebtTokenProps) => {
@@ -20,7 +20,7 @@ export const useGetDigitalAssetOwnerDebtTokenQuery = (props: IGetOwnerDebtTokenP
         '/view',
         {
           function: CONTRACT_VIEWS.GET_OWNER_DEBT_TOKEN,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [collectionName, tokenId],
         },
         {

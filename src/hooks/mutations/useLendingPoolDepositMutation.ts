@@ -33,7 +33,7 @@ export const useLendingPoolDepositMutation = () => {
         typeArguments: [MEGA_COIN.MC_COIN_TYPE],
       };
 
-      const response = await signAndSubmitTransaction({
+      const { data: response } = await signAndSubmitTransaction({
         sender: account.address,
         data: payload,
       });

@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { aptosClient } from '@/aptos';
 import { useToast } from '@/components/ui/use-toast';
 import { CONTRACT_FUNCTIONS, MEGA_COIN } from '@/constants';
+import { toU64 } from '@/lib';
 
 export const useEnglishAuctionDeclareWinnerMutation = () => {
   const { account, signAndSubmitTransaction } = useWallet();
@@ -12,7 +13,7 @@ export const useEnglishAuctionDeclareWinnerMutation = () => {
 
   interface IEnglishAuctionDeclareWinnerProps {
     collectionName: string;
-    tokenId: number;
+    tokenId: string;
   }
 
   return useMutation({
@@ -29,11 +30,11 @@ export const useEnglishAuctionDeclareWinnerMutation = () => {
 
       const payload: InputGenerateTransactionPayloadData = {
         function: CONTRACT_FUNCTIONS.EA_DECLARE_WINNER,
-        functionArguments: [collectionName, tokenId],
+        functionArguments: [collectionName, toU64(tokenId)],
         typeArguments: [MEGA_COIN.MC_COIN_TYPE],
       };
 
-      const response = await signAndSubmitTransaction({
+      const { data: response } = await signAndSubmitTransaction({
         sender: account.address,
         data: payload,
       });

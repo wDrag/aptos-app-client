@@ -109,7 +109,7 @@ export const Header = () => {
   ListItem.displayName = 'ListItem';
 
   return (
-    <header className="fixed z-50 flex h-20 w-full flex-row items-center justify-between bg-transparent bg-[url('/bg.png')] p-8  px-32">
+    <header className="fixed z-50 flex h-20 w-full flex-row items-center justify-between bg-transparent bg-[url('/bg.png')] p-8  px-16">
       <a className="flex items-center justify-start gap-4" href="/">
         <img
           src="/icons/megaloandon-logo.png"
@@ -144,12 +144,12 @@ export const Header = () => {
                     <NavigationMenuContent className="flex w-full items-center">
                       <ul className="flex min-w-32 flex-col gap-3 bg-[#2E2733] p-3">
                         {item.children.map((child, index) => (
-                          <>
+                          <div key={child.key}>
                             {index !== 0 && (
-                              <Separator orientation="horizontal" className="bg-white" />
+                              <Separator orientation="horizontal" className="mb-3 bg-white" />
                             )}
-                            <ListItem key={child.key} title={child.name} href={child.path} />
-                          </>
+                            <ListItem title={child.name} href={child.path} />
+                          </div>
                         ))}
                       </ul>
                     </NavigationMenuContent>

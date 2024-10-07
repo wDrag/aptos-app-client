@@ -4,7 +4,7 @@ import { getApiClient } from '@/apis';
 import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetExchangeOfferNFTProps {
-  index: number;
+  index: string;
 }
 
 export const useGetExchangeOfferNFTQuery = (props: IGetExchangeOfferNFTProps) => {
@@ -19,7 +19,7 @@ export const useGetExchangeOfferNFTQuery = (props: IGetExchangeOfferNFTProps) =>
         '/view',
         {
           function: CONTRACT_VIEWS.EX_GET_OFFER_NFT,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [index],
         },
         {

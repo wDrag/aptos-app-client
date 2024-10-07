@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { aptosClient } from '@/aptos';
 import { useToast } from '@/components/ui/use-toast';
 import { CONTRACT_FUNCTIONS } from '@/constants';
+import { toU64 } from '@/lib';
 
 export const useExchangeCancelListOfferMutation = () => {
   const { account, signAndSubmitTransaction } = useWallet();
@@ -12,7 +13,7 @@ export const useExchangeCancelListOfferMutation = () => {
 
   interface IExchangeCancelListOfferMutation {
     collectionName: string;
-    tokenId: number;
+    tokenId: string;
   }
 
   return useMutation({
@@ -29,10 +30,10 @@ export const useExchangeCancelListOfferMutation = () => {
 
       const payload: InputGenerateTransactionPayloadData = {
         function: CONTRACT_FUNCTIONS.EX_CANCEL_LIST_OFFER_NFT,
-        functionArguments: [account.address, collectionName, tokenId],
+        functionArguments: [account.address, collectionName, toU64(tokenId)],
       };
 
-      const response = await signAndSubmitTransaction({
+      const { data: response } = await signAndSubmitTransaction({
         sender: account.address,
         data: payload,
       });

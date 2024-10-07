@@ -5,7 +5,7 @@ import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetAddressTokenProps {
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export const useGetDigitalAssetAddressTokenQuery = (props: IGetAddressTokenProps) => {
@@ -20,7 +20,7 @@ export const useGetDigitalAssetAddressTokenQuery = (props: IGetAddressTokenProps
         '/view',
         {
           function: CONTRACT_VIEWS.GET_ADDRESS_TOKEN,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [collectionName, tokenId],
         },
         {

@@ -14,7 +14,7 @@ export const useEnglishAuctionAddNFTToAuctionMutation = () => {
   interface IEnglishAuctionAddNFTToAuctionProps {
     ownerAddress: string;
     collectionName: string;
-    tokenId: number;
+    tokenId: string;
     currentDebt: number;
   }
 
@@ -40,7 +40,7 @@ export const useEnglishAuctionAddNFTToAuctionMutation = () => {
         ],
       };
 
-      const response = await signAndSubmitTransaction({
+      const { data: response } = await signAndSubmitTransaction({
         sender: account.address,
         data: payload,
       });

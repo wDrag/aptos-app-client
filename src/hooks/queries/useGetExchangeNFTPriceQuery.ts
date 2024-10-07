@@ -5,7 +5,7 @@ import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetNFTPriceProps {
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export const useGetExchangeNFTPriceQuery = (props: IGetNFTPriceProps) => {
@@ -20,7 +20,7 @@ export const useGetExchangeNFTPriceQuery = (props: IGetNFTPriceProps) => {
         '/view',
         {
           function: CONTRACT_VIEWS.EX_GET_NFT_PRICE,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [collectionName, tokenId],
         },
         {

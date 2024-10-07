@@ -13,7 +13,7 @@ export const useDigitalAssetMintTokenMutation = () => {
   interface IDigitalAssetMintTokenProps {
     ownerAddress: string;
     collectionName: string;
-    tokenId: number;
+    tokenId: string;
     tokenName: string;
     tokenDescription: string;
     tokenUri: string;
@@ -50,7 +50,7 @@ export const useDigitalAssetMintTokenMutation = () => {
         ],
       };
 
-      const response = await signAndSubmitTransaction({
+      const { data: response } = await signAndSubmitTransaction({
         sender: account.address,
         data: payload,
       });

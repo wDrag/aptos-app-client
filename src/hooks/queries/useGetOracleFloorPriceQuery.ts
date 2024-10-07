@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getApiClient } from '@/apis';
-import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
+import { ORACLE_FUNCTIONS, QUERY_KEYS } from '@/constants';
 
 interface IGetOracleFloorPriceProps {
   ownerAddress: string;
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export const useGetOracleFloorPriceQuery = (props: IGetOracleFloorPriceProps) => {
@@ -20,8 +20,8 @@ export const useGetOracleFloorPriceQuery = (props: IGetOracleFloorPriceProps) =>
       const { data: response } = await client.post(
         '/view',
         {
-          function: CONTRACT_VIEWS.ORACLE_GET_FLOOR_PRICE,
-          type_arguments: [null],
+          function: ORACLE_FUNCTIONS.ORACLE_GET_FLOOR_PRICE,
+          type_arguments: [],
           arguments: [ownerAddress, collectionName, tokenId],
         },
         {

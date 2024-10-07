@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getApiClient } from '@/apis';
-import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
+import { ORACLE_FUNCTIONS, QUERY_KEYS } from '@/constants';
 
 interface IGetOracleFullPaymentPriceProps {
   ownerAddress: string;
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 export const useGetOracleFullPaymentPriceQuery = (props: IGetOracleFullPaymentPriceProps) => {
   const { ownerAddress, collectionName, tokenId } = props;
@@ -19,8 +19,8 @@ export const useGetOracleFullPaymentPriceQuery = (props: IGetOracleFullPaymentPr
       const { data: response } = await client.post(
         '/view',
         {
-          function: CONTRACT_VIEWS.ORACLE_GET_FULL_PAYMENT_PRICE,
-          type_arguments: [null],
+          function: ORACLE_FUNCTIONS.ORACLE_GET_FULL_PAYMENT_PRICE,
+          type_arguments: [],
           arguments: [ownerAddress, collectionName, tokenId],
         },
         {

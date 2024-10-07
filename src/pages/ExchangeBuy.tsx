@@ -1,140 +1,16 @@
 import { useSearchParams } from 'react-router-dom';
 
-import { BuyingInstantlyNFTCard, OfferNFTCard } from '@/components/shared';
+import { BuyingInstantlyNFTCard, OfferNFTCard, SkeletonCards } from '@/components/shared';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-interface NFT {
-  collectionName: string;
-  tokenName: string;
-  tokenId: number;
-  tokenUri: string;
-  downPaymentPrice?: number;
-  fullPaymentPrice?: number;
-}
+import { useGetExchangeAllInstantlyNFTQuery } from '@/hooks/queries';
+import { NFT } from '@/types';
 
 const ExchangeBuyPage = () => {
-  const BuyNowNFTList: NFT[] = [
-    {
-      collectionName: 'Froggy',
-      tokenName: 'Tree Froggy',
-      tokenId: 1,
-      tokenUri:
-        'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-    },
-    {
-      collectionName: 'Froggy',
-      tokenName: 'Tree Froggy',
-      tokenId: 2,
-      tokenUri:
-        'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-    },
-    {
-      collectionName: 'Froggy',
-      tokenName: 'Tree Froggy',
-      tokenId: 3,
-      tokenUri:
-        'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-    },
-    {
-      collectionName: 'Froggy',
-      tokenName: 'Tree Froggy',
-      tokenId: 4,
-      tokenUri:
-        'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-    },
-    {
-      collectionName: 'Froggy',
-      tokenName: 'Tree Froggy',
-      tokenId: 5,
-      tokenUri:
-        'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-    },
-    {
-      collectionName: 'Froggy',
-      tokenName: 'Tree Froggy',
-      tokenId: 6,
-      tokenUri:
-        'https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2.jpg',
-    },
-  ];
-
-  const AllItemsNFTList: NFT[] = [
-    {
-      collectionName: 'Bored Ape Yacht Club',
-      tokenName: 'Bored Ape',
-      tokenId: 1234,
-      tokenUri:
-        'https://i.guim.co.uk/img/media/ef8492feb3715ed4de705727d9f513c168a8b196/37_0_1125_675/master/1125.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d456a2af571d980d8b2985472c262b31',
-      downPaymentPrice: 40,
-      fullPaymentPrice: 100,
-    },
-    {
-      collectionName: 'Bored Ape Yacht Club',
-      tokenName: 'Bored Ape',
-      tokenId: 2415,
-      tokenUri:
-        'https://i.guim.co.uk/img/media/ef8492feb3715ed4de705727d9f513c168a8b196/37_0_1125_675/master/1125.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d456a2af571d980d8b2985472c262b31',
-      downPaymentPrice: 40,
-      fullPaymentPrice: 100,
-    },
-    {
-      collectionName: 'Bored Ape Yacht Club',
-      tokenName: 'Bored Ape',
-      tokenId: 5142,
-      tokenUri:
-        'https://i.guim.co.uk/img/media/ef8492feb3715ed4de705727d9f513c168a8b196/37_0_1125_675/master/1125.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d456a2af571d980d8b2985472c262b31',
-      downPaymentPrice: 40,
-      fullPaymentPrice: 100,
-    },
-    {
-      collectionName: 'Bored Ape Yacht Club',
-      tokenName: 'Bored Ape',
-      tokenId: 123,
-      tokenUri:
-        'https://i.guim.co.uk/img/media/ef8492feb3715ed4de705727d9f513c168a8b196/37_0_1125_675/master/1125.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d456a2af571d980d8b2985472c262b31',
-      downPaymentPrice: 40,
-      fullPaymentPrice: 100,
-    },
-    {
-      collectionName: 'Bored Ape Yacht Club',
-      tokenName: 'Bored Ape',
-      tokenId: 3,
-      tokenUri:
-        'https://i.guim.co.uk/img/media/ef8492feb3715ed4de705727d9f513c168a8b196/37_0_1125_675/master/1125.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d456a2af571d980d8b2985472c262b31',
-      downPaymentPrice: 40,
-      fullPaymentPrice: 100,
-    },
-    {
-      collectionName: 'Bored Ape Yacht Club',
-      tokenName: 'Bored Ape',
-      tokenId: 1521,
-      tokenUri:
-        'https://i.guim.co.uk/img/media/ef8492feb3715ed4de705727d9f513c168a8b196/37_0_1125_675/master/1125.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d456a2af571d980d8b2985472c262b31',
-      downPaymentPrice: 40,
-      fullPaymentPrice: 100,
-    },
-    {
-      collectionName: 'Bored Ape Yacht Club',
-      tokenName: 'Bored Ape',
-      tokenId: 5123,
-      tokenUri:
-        'https://i.guim.co.uk/img/media/ef8492feb3715ed4de705727d9f513c168a8b196/37_0_1125_675/master/1125.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d456a2af571d980d8b2985472c262b31',
-      downPaymentPrice: 40,
-      fullPaymentPrice: 100,
-    },
-    {
-      collectionName: 'Bored Ape Yacht Club',
-      tokenName: 'Bored Ape',
-      tokenId: 92,
-      tokenUri:
-        'https://i.guim.co.uk/img/media/ef8492feb3715ed4de705727d9f513c168a8b196/37_0_1125_675/master/1125.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d456a2af571d980d8b2985472c262b31',
-      downPaymentPrice: 40,
-      fullPaymentPrice: 100,
-    },
-  ];
-
   const [searchParams, setSearchParams] = useSearchParams();
   const view = searchParams.get('view') ?? 'buyNow';
+
+  const { data: BuyNowNFTList = [] } = useGetExchangeAllInstantlyNFTQuery();
+  const AllItemsNFTList: NFT[] = [];
 
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden">
@@ -160,16 +36,21 @@ const ExchangeBuyPage = () => {
           <TabsContent value="buyNow">
             <div className="grid grid-cols-4 gap-12">
               {view === 'buyNow' &&
+                BuyNowNFTList.length > 0 &&
                 BuyNowNFTList.map((nft) => (
                   <BuyingInstantlyNFTCard
                     key={nft.tokenId + nft.collectionName}
+                    ownerAddress={nft.ownerAddress}
+                    collectionName={nft.collectionName}
                     tokenName={nft.tokenName}
                     tokenId={nft.tokenId}
                     tokenUri={nft.tokenUri}
-                    downPaymentPrice={nft.downPaymentPrice ?? 0}
-                    fullPaymentPrice={nft.fullPaymentPrice ?? 0}
                   />
                 ))}
+
+              {view === 'buyNow' && BuyNowNFTList.length === 0 && (
+                <SkeletonCards skeletonCount={4} />
+              )}
             </div>
           </TabsContent>
           <TabsContent value="allItems">
@@ -177,7 +58,7 @@ const ExchangeBuyPage = () => {
               {view === 'allItems' &&
                 AllItemsNFTList.map((nft) => (
                   <OfferNFTCard
-                    key={nft.tokenId}
+                    key={nft.collectionName + nft.tokenId}
                     tokenName={nft.tokenName}
                     tokenId={nft.tokenId}
                     tokenUri={nft.tokenUri}

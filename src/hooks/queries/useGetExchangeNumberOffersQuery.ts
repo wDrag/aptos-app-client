@@ -5,7 +5,7 @@ import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetNumberOffersProps {
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export const useGetExchangeNumberOffersQuery = (props: IGetNumberOffersProps) => {
@@ -20,7 +20,7 @@ export const useGetExchangeNumberOffersQuery = (props: IGetNumberOffersProps) =>
         '/view',
         {
           function: CONTRACT_VIEWS.EX_GET_NUMBER_OFFERS,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [collectionName, tokenId],
         },
         {

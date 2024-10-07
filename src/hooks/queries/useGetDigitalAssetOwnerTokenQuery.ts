@@ -5,7 +5,7 @@ import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetOwnerTokenProps {
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export const useGetDigitalAssetOwnerTokenQuery = (props: IGetOwnerTokenProps) => {
@@ -19,8 +19,8 @@ export const useGetDigitalAssetOwnerTokenQuery = (props: IGetOwnerTokenProps) =>
       const { data: response } = await client.post(
         '/view',
         {
-          function: CONTRACT_VIEWS.GET_OWNER_TOKEN,
-          type_arguments: [null],
+          function: CONTRACT_VIEWS.DA_GET_OWNER_TOKEN,
+          type_arguments: [],
           arguments: [collectionName, tokenId],
         },
         {

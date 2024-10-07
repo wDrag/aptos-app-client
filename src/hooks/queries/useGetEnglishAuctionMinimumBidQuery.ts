@@ -5,7 +5,7 @@ import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetMinimumBidProps {
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export const useGetEnglishAuctionMinimumBidQuery = (props: IGetMinimumBidProps) => {
@@ -20,7 +20,7 @@ export const useGetEnglishAuctionMinimumBidQuery = (props: IGetMinimumBidProps) 
         '/view',
         {
           function: CONTRACT_VIEWS.EA_GET_MINIMUM_BID,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [collectionName, tokenId],
         },
         {

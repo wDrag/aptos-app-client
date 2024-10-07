@@ -13,7 +13,7 @@ export const useGetEnglishAuctionNumbersNFTToAuctionQuery = () => {
         '/view',
         {
           function: CONTRACT_VIEWS.EA_GET_NUMBER_NFT_TO_AUCTION,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [],
         },
         {

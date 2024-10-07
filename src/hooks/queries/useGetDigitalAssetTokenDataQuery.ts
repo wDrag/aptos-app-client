@@ -5,7 +5,7 @@ import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetTokenDataProps {
   collectionName: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export const useGetDigitalAssetTokenDataQuery = (props: IGetTokenDataProps) => {
@@ -20,7 +20,7 @@ export const useGetDigitalAssetTokenDataQuery = (props: IGetTokenDataProps) => {
         '/view',
         {
           function: CONTRACT_VIEWS.GET_TOKEN_DATA,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [collectionName, tokenId],
         },
         {

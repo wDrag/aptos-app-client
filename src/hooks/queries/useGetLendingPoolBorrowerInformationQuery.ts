@@ -19,7 +19,7 @@ export const useGetLendingPoolBorrowerInformationQuery = (props: IGetBorrowerInf
         '/view',
         {
           function: CONTRACT_VIEWS.LP_GET_BORROWER_INFORMATION,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [borrowerAddress],
         },
         {

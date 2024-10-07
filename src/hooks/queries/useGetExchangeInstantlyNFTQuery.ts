@@ -4,31 +4,34 @@ import { getApiClient } from '@/apis';
 import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetInstantlyNFTProps {
-  index: number;
+  indexes: string[];
 }
 
 export const useGetExchangeInstantlyNFTQuery = (props: IGetInstantlyNFTProps) => {
-  const { index } = props;
+  const { indexes } = props;
   return useQuery({
-    queryKey: [QUERY_KEYS.EX_GET_INSTANTLY_NFT],
+    queryKey: [QUERY_KEYS.EX_GET_INSTANTLY_NFT, indexes],
     queryFn: async () => {
       const client = getApiClient();
-
-      const { data: response } = await client.post(
-        '/view',
-        {
-          function: CONTRACT_VIEWS.EX_GET_INSTANTLY_NFT,
-          type_arguments: [null],
-          arguments: [index],
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+      const responses = await Promise.all(
+        indexes.map(async (index) => {
+          const { data: response } = await client.post(
+            '/view',
+            {
+              function: CONTRACT_VIEWS.EX_GET_INSTANTLY_NFT,
+              type_arguments: [],
+              arguments: [index],
+            },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          return response;
+        })
       );
-
-      return response;
+      return responses;
     },
   });
 };

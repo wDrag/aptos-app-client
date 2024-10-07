@@ -4,7 +4,7 @@ import { getApiClient } from '@/apis';
 import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetNFTToAuctionProps {
-  index: number;
+  index: string;
 }
 
 export const useGetEnglishAuctionNFTToAuctionQuery = (props: IGetNFTToAuctionProps) => {
@@ -19,7 +19,7 @@ export const useGetEnglishAuctionNFTToAuctionQuery = (props: IGetNFTToAuctionPro
         '/view',
         {
           function: CONTRACT_VIEWS.EA_GET_MINIMUM_BID,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [index],
         },
         {

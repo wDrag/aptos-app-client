@@ -5,7 +5,7 @@ import { CONTRACT_VIEWS, QUERY_KEYS } from '@/constants';
 
 interface IGetCollateralProps {
   ownerAddress: string;
-  index: number;
+  index: string;
 }
 
 export const useGetLendingPoolCollateralQuery = (props: IGetCollateralProps) => {
@@ -20,7 +20,7 @@ export const useGetLendingPoolCollateralQuery = (props: IGetCollateralProps) => 
         '/view',
         {
           function: CONTRACT_VIEWS.LP_GET_COLLATERAL,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [ownerAddress, index],
         },
         {

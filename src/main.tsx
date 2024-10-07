@@ -1,3 +1,4 @@
+import NiceModal from '@ebay/nice-modal-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -9,7 +10,11 @@ import { appRouter } from '@/Router';
 
 import './index.css';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { refetchOnWindowFocus: false, staleTime: 15 * 1000, retry: 0 },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,8 +22,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         <AutoConnectProvider>
           <WalletProvider>
-            <RouterProvider router={appRouter} />
-            <Toaster />
+            <NiceModal.Provider>
+              <RouterProvider router={appRouter} />
+              <Toaster />
+            </NiceModal.Provider>
           </WalletProvider>
         </AutoConnectProvider>
       </ThemeProvider>

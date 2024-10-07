@@ -13,7 +13,7 @@ export const useGetExchangeNumbersOffersNFTQuery = () => {
         '/view',
         {
           function: CONTRACT_VIEWS.EX_GET_NUMBERS_OFFERS_NFT,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [],
         },
         {

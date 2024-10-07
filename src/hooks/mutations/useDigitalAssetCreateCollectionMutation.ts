@@ -44,7 +44,7 @@ export const useDigitalAssetCreateCollectionMutation = () => {
         ],
       };
 
-      const response = await signAndSubmitTransaction({
+      const { data: response } = await signAndSubmitTransaction({
         sender: account.address,
         data: payload,
       });

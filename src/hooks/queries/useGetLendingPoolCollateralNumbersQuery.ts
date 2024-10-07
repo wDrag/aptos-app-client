@@ -19,7 +19,7 @@ export const useGetCollateralNumbersQuery = (props: IGetCollateralNumbersProps) 
         '/view',
         {
           function: CONTRACT_VIEWS.LP_GET_COLLATERAL_NUMBERS,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [ownerAddress],
         },
         {

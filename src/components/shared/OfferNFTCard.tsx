@@ -4,12 +4,13 @@ import { cn } from '@/lib';
 
 interface OfferNFTCardProps {
   tokenName: string;
-  tokenId: number;
+  tokenId: string;
   tokenUri: string;
   className?: string;
 }
 
 export const OfferNFTCard = (props: OfferNFTCardProps) => {
+  // eslint-disable-next-line no-unused-vars , @typescript-eslint/no-unused-vars
   const { tokenName, tokenId, tokenUri, className } = props;
 
   return (
@@ -23,9 +24,7 @@ export const OfferNFTCard = (props: OfferNFTCardProps) => {
         <img src={tokenUri} alt="Token" className="z-10 size-full rounded-2xl object-cover" />
       </AspectRatio>
       <div className="flex flex-col items-start gap-2 px-4">
-        <span className="text-center text-xl font-bold text-white">
-          {tokenName} #{tokenId}
-        </span>
+        <span className="text-center text-xl font-bold text-white">{tokenName}</span>
       </div>
 
       <div className="flex w-full flex-col px-4">

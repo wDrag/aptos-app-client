@@ -13,7 +13,7 @@ export const useEnglishAuctionPlaceBidMutation = () => {
 
   interface IEnglishAuctionPlaceBidProps {
     collectionName: string;
-    tokenId: number;
+    tokenId: string;
     bidAmount: number;
   }
 
@@ -35,7 +35,7 @@ export const useEnglishAuctionPlaceBidMutation = () => {
         typeArguments: [MEGA_COIN.MC_COIN_TYPE],
       };
 
-      const response = await signAndSubmitTransaction({
+      const { data: response } = await signAndSubmitTransaction({
         sender: account.address,
         data: payload,
       });

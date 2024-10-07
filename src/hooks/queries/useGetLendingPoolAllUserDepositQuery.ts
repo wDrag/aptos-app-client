@@ -13,7 +13,7 @@ export const useGetLendingPoolAllUserDepositQuery = () => {
         '/view',
         {
           function: CONTRACT_VIEWS.LP_GET_ALL_USER_DEPOSIT,
-          type_arguments: [null],
+          type_arguments: [],
           arguments: [],
         },
         {

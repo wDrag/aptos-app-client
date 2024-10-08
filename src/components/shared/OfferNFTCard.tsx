@@ -4,14 +4,14 @@ import { cn } from '@/lib';
 
 interface OfferNFTCardProps {
   tokenName: string;
+  collectionName: string;
   tokenId: string;
   tokenUri: string;
   className?: string;
 }
 
 export const OfferNFTCard = (props: OfferNFTCardProps) => {
-  // eslint-disable-next-line no-unused-vars , @typescript-eslint/no-unused-vars
-  const { tokenName, tokenId, tokenUri, className } = props;
+  const { tokenName, tokenUri, className } = props;
 
   return (
     <div

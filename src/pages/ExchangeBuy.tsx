@@ -60,6 +60,7 @@ const ExchangeBuyPage = () => {
                   <OfferNFTCard
                     key={nft.collectionName + nft.tokenId}
                     tokenName={nft.tokenName}
+                    collectionName={nft.collectionName}
                     tokenId={nft.tokenId}
                     tokenUri={nft.tokenUri}
                   />

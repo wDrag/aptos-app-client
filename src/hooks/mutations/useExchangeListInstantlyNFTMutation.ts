@@ -34,18 +34,21 @@ export const useExchangeListInstantlyNFTMutation = () => {
         typeArguments: [MEGA_COIN.MC_COIN_TYPE],
       };
 
-      const { data: response } = await signAndSubmitTransaction({
+      const response = await signAndSubmitTransaction({
         sender: account.address,
         data: payload,
       });
 
       try {
-        aptosClient.waitForTransaction(response.hash);
+        const txHash = response.hash;
+        await aptosClient.waitForTransaction(txHash);
         toast({
           title: 'Success',
           description: 'Transaction submitted',
         });
       } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
         toast({
           title: 'Error',
           description: 'Transaction failed',

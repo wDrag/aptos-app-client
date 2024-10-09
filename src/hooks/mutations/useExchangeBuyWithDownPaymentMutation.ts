@@ -13,15 +13,17 @@ export const useExchangeBuyWithDownPaymentMutation = () => {
 
   const queryClient = useQueryClient();
 
-  const refetchData = () => {
-    queryClient.invalidateQueries({
+  const refetchData = async (closeModal: () => void) => {
+    await queryClient.invalidateQueries({
       queryKey: [QUERY_KEYS.EX_GET_NUMBERS_INSTANTLY_NFT],
     });
+    closeModal();
   };
 
   interface IExchangeBuyWithDownPaymentMutation {
     collectionName: string;
     tokenId: string;
+    closeModal: () => void;
   }
 
   return useMutation({
@@ -34,7 +36,7 @@ export const useExchangeBuyWithDownPaymentMutation = () => {
         return;
       }
 
-      const { collectionName, tokenId } = props;
+      const { collectionName, tokenId, closeModal } = props;
 
       const payload: InputGenerateTransactionPayloadData = {
         function: CONTRACT_FUNCTIONS.EX_BUY_WITH_DOWN_PAYMENT,
@@ -48,8 +50,8 @@ export const useExchangeBuyWithDownPaymentMutation = () => {
       });
 
       try {
-        await aptosClient.waitForTransaction(response.hash);
-        refetchData();
+        await aptosClient.waitForTransaction({ transactionHash: response.hash });
+        await refetchData(closeModal);
         toast({
           title: 'Success',
           description: 'Transaction submitted',
@@ -57,7 +59,7 @@ export const useExchangeBuyWithDownPaymentMutation = () => {
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log('error', error);
-        refetchData();
+        await refetchData(closeModal);
         toast({
           title: 'Error',
           description: 'Transaction failed',

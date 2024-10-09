@@ -5,11 +5,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useGetExchangeAllInstantlyNFTQuery } from '@/hooks/queries';
 import { NFT } from '@/types';
 
+const dummyNFT: NFT = {
+  ownerAddress: 'dummy',
+  collectionName: 'dummy',
+  tokenId: 'dummy',
+  tokenUri: 'dummy',
+  tokenName: 'dummy',
+};
+
 const ExchangeBuyPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const view = searchParams.get('view') ?? 'buyNow';
 
-  const { data: BuyNowNFTList = [] } = useGetExchangeAllInstantlyNFTQuery();
+  const { data: BuyNowNFTList = [dummyNFT] } = useGetExchangeAllInstantlyNFTQuery();
   const AllItemsNFTList: NFT[] = [];
 
   return (
@@ -37,6 +45,7 @@ const ExchangeBuyPage = () => {
             <div className="grid grid-cols-4 gap-12">
               {view === 'buyNow' &&
                 BuyNowNFTList.length > 0 &&
+                BuyNowNFTList[0].ownerAddress !== 'dummy' &&
                 BuyNowNFTList.map((nft) => (
                   <BuyingInstantlyNFTCard
                     key={nft.tokenId + nft.collectionName}
@@ -48,9 +57,9 @@ const ExchangeBuyPage = () => {
                   />
                 ))}
 
-              {view === 'buyNow' && BuyNowNFTList.length === 0 && (
-                <SkeletonCards skeletonCount={4} />
-              )}
+              {view === 'buyNow' &&
+                BuyNowNFTList.length > 0 &&
+                BuyNowNFTList[0].ownerAddress === 'dummy' && <SkeletonCards skeletonCount={4} />}
             </div>
           </TabsContent>
           <TabsContent value="allItems">

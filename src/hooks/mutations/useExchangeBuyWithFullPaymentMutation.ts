@@ -14,14 +14,17 @@ export const useExchangeBuyWithFullPaymentMutation = () => {
   interface IExchangeBuyWithFullPaymentMutation {
     collectionName: string;
     tokenId: string;
+    closeModal: () => void;
   }
 
   const queryClient = useQueryClient();
 
-  const refetchData = () => {
-    queryClient.invalidateQueries({
+  const refetchData = async (closeModal: () => void) => {
+    await queryClient.invalidateQueries({
       queryKey: [QUERY_KEYS.EX_GET_NUMBERS_INSTANTLY_NFT],
     });
+
+    closeModal();
   };
 
   return useMutation({
@@ -34,7 +37,7 @@ export const useExchangeBuyWithFullPaymentMutation = () => {
         return;
       }
 
-      const { collectionName, tokenId } = props;
+      const { collectionName, tokenId, closeModal } = props;
 
       const payload: InputGenerateTransactionPayloadData = {
         function: CONTRACT_FUNCTIONS.EX_BUY_WITH_FULL_PAYMENT,
@@ -48,8 +51,8 @@ export const useExchangeBuyWithFullPaymentMutation = () => {
       });
 
       try {
-        await aptosClient.waitForTransaction(response.hash);
-        refetchData();
+        await aptosClient.waitForTransaction({ transactionHash: response.hash });
+        await refetchData(closeModal);
         toast({
           title: 'Success',
           description: 'Transaction submitted',
@@ -57,7 +60,7 @@ export const useExchangeBuyWithFullPaymentMutation = () => {
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log('error', error);
-        refetchData();
+        await refetchData(closeModal);
         toast({
           title: 'Error',
           description: 'Transaction failed',

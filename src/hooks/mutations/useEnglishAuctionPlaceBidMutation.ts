@@ -41,7 +41,7 @@ export const useEnglishAuctionPlaceBidMutation = () => {
       });
 
       try {
-        await aptosClient.waitForTransaction(response.hash);
+        await aptosClient.waitForTransaction({ transactionHash: response.hash });
         toast({
           title: 'Success',
           description: 'Transaction submitted',

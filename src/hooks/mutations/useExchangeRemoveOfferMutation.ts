@@ -40,7 +40,7 @@ export const useExchangeRemoveOfferMutation = () => {
       });
 
       try {
-        await aptosClient.waitForTransaction(response.hash);
+        await aptosClient.waitForTransaction({ transactionHash: response.hash });
         toast({
           title: 'Success',
           description: 'Transaction submitted',

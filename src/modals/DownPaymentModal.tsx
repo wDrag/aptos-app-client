@@ -32,11 +32,8 @@ export const DownPaymentModal = NiceModal.create((props: DownPaymentModalProps) 
     await buyWithDownPaymentMutation.mutateAsync({
       collectionName,
       tokenId,
+      closeModal,
     });
-
-    if (buyWithDownPaymentMutation.isSuccess) {
-      closeModal();
-    }
   };
 
   return (

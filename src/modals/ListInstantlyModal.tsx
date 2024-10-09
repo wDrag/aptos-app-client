@@ -32,10 +32,8 @@ export const ListInstantlyModal = NiceModal.create((props: ListInstantlyModalPro
     await listInstantlyNFTMutation.mutateAsync({
       collectionName,
       tokenId,
+      closeModal,
     });
-    if (listInstantlyNFTMutation.isSuccess) {
-      closeModal();
-    }
   };
 
   return (

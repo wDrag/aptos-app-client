@@ -31,10 +31,8 @@ export const FullPaymentModal = NiceModal.create((props: FullPaymentModalProps) 
     await buyWithFullPaymentMutation.mutateAsync({
       collectionName,
       tokenId,
+      closeModal,
     });
-    if (buyWithFullPaymentMutation.isSuccess) {
-      closeModal();
-    }
   };
 
   return (

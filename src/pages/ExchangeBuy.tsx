@@ -2,7 +2,10 @@ import { useSearchParams } from 'react-router-dom';
 
 import { BuyingInstantlyNFTCard, OfferNFTCard, SkeletonCards } from '@/components/shared';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useGetExchangeAllInstantlyNFTQuery } from '@/hooks/queries';
+import {
+  useGetExchangeAllInstantlyNFTQuery,
+  useGetExchangeAllOfferNFTQuery,
+} from '@/hooks/queries';
 import { NFT } from '@/types';
 
 const dummyNFT: NFT = {
@@ -18,7 +21,8 @@ const ExchangeBuyPage = () => {
   const view = searchParams.get('view') ?? 'buyNow';
 
   const { data: BuyNowNFTList = [dummyNFT] } = useGetExchangeAllInstantlyNFTQuery();
-  const AllItemsNFTList: NFT[] = [];
+
+  const { data: AllItemsNFTList = [dummyNFT] } = useGetExchangeAllOfferNFTQuery();
 
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden">
@@ -65,6 +69,8 @@ const ExchangeBuyPage = () => {
           <TabsContent value="allItems">
             <div className="grid grid-cols-4 gap-12">
               {view === 'allItems' &&
+                AllItemsNFTList.length > 0 &&
+                AllItemsNFTList[0].ownerAddress !== 'dummy' &&
                 AllItemsNFTList.map((nft) => (
                   <OfferNFTCard
                     key={nft.collectionName + nft.tokenId}
@@ -74,6 +80,9 @@ const ExchangeBuyPage = () => {
                     tokenUri={nft.tokenUri}
                   />
                 ))}
+              {view === 'allItems' &&
+                AllItemsNFTList.length > 0 &&
+                AllItemsNFTList[0].ownerAddress === 'dummy' && <SkeletonCards skeletonCount={4} />}
             </div>
           </TabsContent>
         </Tabs>

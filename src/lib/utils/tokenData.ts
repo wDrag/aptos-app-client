@@ -8,3 +8,7 @@ export const getIdFromName = (name: string) => {
 export const toAddress = (name: string) => {
   return AccountAddress.fromString(name);
 };
+
+export const toShortAddress = (address: string) => {
+  return address.slice(0, 4) + '...' + address.slice(-4);
+};

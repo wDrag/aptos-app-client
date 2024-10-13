@@ -16,6 +16,14 @@ export const toU128 = (value: string) => {
   return new U128(BigInt(value));
 };
 
-export const toU256 = (value: string) => {
-  return new U256(BigInt(value));
+export const toU256 = (value: string | number) => {
+  return new U256(BigInt(value.toString()));
+};
+
+export const tryParseInt = (value: string) => {
+  const parsedValue = parseInt(value);
+  if (isNaN(parsedValue)) {
+    return 0;
+  }
+  return parsedValue;
 };

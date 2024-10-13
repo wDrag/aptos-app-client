@@ -31,20 +31,18 @@ export const ListForOfferModal = NiceModal.create((props: ListForOfferModalProps
     await listOfferNFTMutation.mutateAsync({
       collectionName,
       tokenId,
+      closeModal,
     });
-    if (listOfferNFTMutation.isSuccess) {
-      closeModal();
-    }
   };
 
   return (
     <div className="flex w-[600px]">
       <Dialog open onOpenChange={closeModal}>
-        <DialogContent className="flex min-w-[720px] flex-col gap-6">
+        <DialogContent className="flex min-w-[680px] flex-col gap-6">
           <DialogTitle className="text-center text-3xl font-semibold">
-            <span className="text-[#A66AFE]">Listing</span>
+            <span className="text-[#D1F608]">Listing</span>
           </DialogTitle>
-          <div className="flex w-full items-start justify-between gap-16 px-3 pb-3">
+          <div className="flex w-full items-start justify-between gap-16 px-6 pb-3">
             <img src={tokenUri} alt="Token" className="size-56 flex-none rounded-md object-cover" />
 
             <div className="flex flex-none flex-col items-start justify-start gap-4">

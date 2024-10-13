@@ -44,7 +44,7 @@ export const ListInstantlyModal = NiceModal.create((props: ListInstantlyModalPro
             <span className="text-[#A66AFE]">Sell </span>
             <span className="text-white">Instantly</span>
           </DialogTitle>
-          <div className="flex w-full items-start justify-between gap-16 px-3 pb-3">
+          <div className="flex w-full items-start justify-between gap-16 px-6 pb-3">
             <img src={tokenUri} alt="Token" className="size-64 flex-none rounded-md object-cover" />
 
             <div className="flex flex-none flex-col items-start justify-start gap-4">

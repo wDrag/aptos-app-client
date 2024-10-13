@@ -32,14 +32,18 @@ const ExchangeBuyPage = () => {
           <TabsList className="mb-8 flex w-fit justify-start gap-2 rounded-xl bg-transparent">
             <TabsTrigger
               className="rounded-xl border-2 border-solid border-transparent bg-transparent text-xl data-[state=active]:border-[#D1F608]"
-              onClick={() => setSearchParams({ view: 'buyNow' })}
+              onClick={() => {
+                setSearchParams({ view: 'buyNow' });
+              }}
               value="buyNow"
             >
               Buy Now
             </TabsTrigger>
             <TabsTrigger
               className="rounded-xl border-2 border-solid border-transparent bg-transparent text-xl data-[state=active]:border-[#D1F608]"
-              onClick={() => setSearchParams({ view: 'allItems' })}
+              onClick={() => {
+                setSearchParams({ view: 'allItems' });
+              }}
               value="allItems"
             >
               All Items
@@ -74,8 +78,9 @@ const ExchangeBuyPage = () => {
                 AllItemsNFTList.map((nft) => (
                   <OfferNFTCard
                     key={nft.collectionName + nft.tokenId}
-                    tokenName={nft.tokenName}
+                    ownerAddress={nft.ownerAddress}
                     collectionName={nft.collectionName}
+                    tokenName={nft.tokenName}
                     tokenId={nft.tokenId}
                     tokenUri={nft.tokenUri}
                   />

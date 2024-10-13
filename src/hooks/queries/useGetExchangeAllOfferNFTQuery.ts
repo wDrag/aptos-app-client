@@ -14,12 +14,12 @@ export const useGetExchangeAllOfferNFTQuery = () => {
 
   const indexes = Array.from(Array(parsedNumberOfOfferNFT).keys(), (i) => i.toString());
 
-  const { data: instantlyNFTList, isLoading: isLoadingList } = useGetExchangeOfferNFTQuery({
+  const { data: offerNFTList, isLoading: isLoadingList } = useGetExchangeOfferNFTQuery({
     indexes,
   });
 
   const { data: allNFTList = [], isLoading: isLoadingInfo } = useGetDigitalAssetTokensDataQuery({
-    tokenInfos: instantlyNFTList?.map((nftInfos) => ({
+    tokenInfos: offerNFTList?.map((nftInfos) => ({
       collectionName: nftInfos[0],
       tokenId: nftInfos[1],
     })),

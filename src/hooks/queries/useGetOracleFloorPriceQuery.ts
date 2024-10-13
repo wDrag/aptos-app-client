@@ -31,7 +31,7 @@ export const useGetOracleFloorPriceQuery = (props: IGetOracleFloorPriceProps) =>
         }
       );
 
-      return response;
+      return parseInt(response[0]);
     },
   });
 };

@@ -44,7 +44,7 @@ export const DownPaymentModal = NiceModal.create((props: DownPaymentModalProps) 
             <span className="text-[#A66AFE]">Down </span>
             <span className="text-white">Payment</span>
           </DialogTitle>
-          <div className="flex w-full items-start justify-start gap-20 px-3 pb-3">
+          <div className="flex w-full items-start justify-between gap-20 px-3 pb-3">
             <img src={tokenUri} alt="Token" className="size-56 flex-none rounded-md object-cover" />
 
             <div className="flex flex-none flex-col items-start justify-start gap-6">

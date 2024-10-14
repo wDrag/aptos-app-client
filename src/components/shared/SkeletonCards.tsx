@@ -9,6 +9,6 @@ export const SkeletonCards = ({
   className?: string;
 }) => {
   return Array.from({ length: skeletonCount }, (_, i) => (
-    <Skeleton key={i} className={cn('flex flex-col w-64 h-72 rounded-2xl pb-4', className)} />
+    <Skeleton key={i} className={cn('flex flex-col w-72 h-72 rounded-2xl pb-4', className)} />
   ));
 };

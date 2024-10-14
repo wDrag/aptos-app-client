@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { aptosClient } from '@/aptos';
 import { useToast } from '@/components/ui/use-toast';
 import { CONTRACT_FUNCTIONS, MEGA_COIN, MEGA_COIN_DECIMALS, QUERY_KEYS } from '@/constants';
-import { toDecimals } from '@/lib';
+import { toDecimals, toU256 } from '@/lib';
 
 export const useExchangeAddOfferMutation = () => {
   const { account, signAndSubmitTransaction } = useWallet();
@@ -44,8 +44,8 @@ export const useExchangeAddOfferMutation = () => {
         functionArguments: [
           collectionName,
           tokenId,
-          toDecimals(offerPrice, MEGA_COIN_DECIMALS),
-          offerTime,
+          toU256(toDecimals(offerPrice, MEGA_COIN_DECIMALS)),
+          toU256(offerTime),
         ],
         typeArguments: [MEGA_COIN.MC_COIN_TYPE],
       };

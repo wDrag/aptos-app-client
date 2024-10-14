@@ -1,16 +1,147 @@
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { CoinIcon } from '@/components/icons/coin';
+import { APTInput } from '@/components/shared';
+import { QUERY_KEYS } from '@/constants';
+import {
+  useLendingPoolBorrowMutation,
+  useLendingPoolDepositCollateralMutation,
+  useLendingPoolDepositMutation,
+  useLendingPoolWithdrawMutation,
+} from '@/hooks/mutations';
+import {
+  useGetLendingPoolAllCollateralQuery,
+  useGetLendingPoolBorrowerInformationQuery,
+  useGetLendingPoolLenderInformationQuery,
+  useGetLendingPoolMarketConfigurationQuery,
+  useTokensQuery,
+} from '@/hooks/queries';
+import { cn, formatNumber, fromDecimals, onValueChange, tryParseInt } from '@/lib';
 
 const LendingPage = () => {
-  const [selectedTab, setSelectedTab] = useState('1');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const view = searchParams.get('view') ?? 'depositAPT';
+
+  const { account } = useWallet();
+
+  const {
+    data: marketConfig = {
+      totalDeposit: 1000,
+      depositAPY: 1000,
+      borrowAPY: 1000,
+    },
+  } = useGetLendingPoolMarketConfigurationQuery();
+
+  const { data: collaterals = [] } = useGetLendingPoolAllCollateralQuery();
+
+  const {
+    data: userBorrowInformation = {
+      borrowAmount: '0',
+      repaidAmount: '0',
+      totalCollateralAmount: '0',
+      healthFactor: '0',
+      availableToBorrow: '0',
+    },
+  } = useGetLendingPoolBorrowerInformationQuery({
+    borrowerAddress: account?.address || '',
+  });
+
+  const { data: userDepositInformation = 0 } = useGetLendingPoolLenderInformationQuery({
+    lenderAddress: account?.address || '',
+  });
+
+  const [withdrawDepositAmount, setWithdrawDepositAmount] = useState<string>('0');
+  const [withDrawDepositSelector, setWithdrawDepositSelector] = useState<string>('deposit');
+
+  const withdrawMutation = useLendingPoolWithdrawMutation();
+  const depositMutation = useLendingPoolDepositMutation();
+
+  const queryClient = useQueryClient();
+
+  const refetchAllData = async () => {
+    await queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.LP_GET_MARKET_CONFIGURATION],
+    });
+    await queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.LP_GET_COLLATERAL_NUMBERS],
+    });
+    await queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.LP_GET_BORROWER_INFORMATION],
+    });
+    await queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.LP_GET_LENDER_INFORMATION],
+    });
+    await queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.GET_TOKENS],
+    });
+  };
+
+  const handleWithdraw = async () => {
+    await withdrawMutation.mutateAsync({
+      amount: tryParseInt(withdrawDepositAmount),
+    });
+    await refetchAllData();
+  };
+
+  const handleDeposit = async () => {
+    await depositMutation.mutateAsync({
+      amount: tryParseInt(withdrawDepositAmount),
+    });
+    await refetchAllData();
+  };
+
+  const { data: userNFTList = [] } = useTokensQuery();
+
+  const [selectedNFTs, setSelectedNFTs] = useState<Array<boolean>>(
+    Array.from({ length: userNFTList.length }, () => false)
+  );
+
+  const handleSelectNFT = (index: number) => {
+    const newSelectedNFTs = [...selectedNFTs];
+    newSelectedNFTs[index] = !newSelectedNFTs[index];
+    setSelectedNFTs(newSelectedNFTs);
+  };
+
+  const depositNFTMutation = useLendingPoolDepositCollateralMutation();
+
+  const handleDepositNFT = async () => {
+    await Promise.all(
+      selectedNFTs.map(async (isSelected, index) => {
+        if (isSelected) {
+          await depositNFTMutation.mutateAsync({
+            collectionName: userNFTList[index].collectionName,
+            tokenId: userNFTList[index].tokenId,
+          });
+        }
+      })
+    );
+    await refetchAllData();
+  };
+
+  const [borrowAmount, setBorrowAmount] = useState<string>('0');
+
+  const borrowMutation = useLendingPoolBorrowMutation();
+
+  const handleBorrow = async () => {
+    await borrowMutation.mutateAsync({
+      amount: tryParseInt(borrowAmount),
+    });
+    await refetchAllData();
+  };
+
   return (
     <div>
-      <div className="w-full bg-[url('/bg.png')] bg-cover bg-center px-32 pt-28 text-lg">
+      <div className="min-h-screen w-full bg-[url('/bg.png')] bg-cover bg-center px-32 pt-28 text-lg">
         <div className="grid grid-cols-4 gap-8 font-prototype text-xl tracking-wider text-white ">
           <div className="col-span-1 h-full rounded-xl bg-[#2E2733] p-4">
             <div className="flex items-center justify-start gap-3">
-              <p className="text-3xl text-primary"> 1000</p>
+              <p className="text-3xl text-primary">
+                {' '}
+                {formatNumber(fromDecimals(marketConfig.totalDeposit, 6))}
+              </p>
               <div className="size-8">
                 <CoinIcon />
               </div>
@@ -19,7 +150,10 @@ const LendingPage = () => {
           </div>
           <div className="col-span-1 h-full rounded-xl bg-card p-4 ">
             <div className="flex items-center justify-start gap-3">
-              <p className="text-3xl text-primary"> 1000</p>
+              <p className="text-3xl text-primary">
+                {' '}
+                {formatNumber(fromDecimals(userBorrowInformation.borrowAmount, 6))}
+              </p>
               <div className="size-8">
                 <CoinIcon />
               </div>
@@ -28,7 +162,10 @@ const LendingPage = () => {
           </div>
           <div className="col-span-1 h-full rounded-xl bg-card p-4">
             <div className="flex items-center justify-start gap-3">
-              <p className="text-3xl text-primary"> 1000</p>
+              <p className="text-3xl text-primary">
+                {' '}
+                {formatNumber(fromDecimals(userDepositInformation, 6))}
+              </p>
               <div className="size-8">
                 <CoinIcon />
               </div>
@@ -37,7 +174,10 @@ const LendingPage = () => {
           </div>
           <div className="col-span-1 h-full rounded-xl bg-card p-4">
             <div className="flex items-center justify-start gap-3">
-              <p className="text-3xl text-secondary  "> 1000</p>
+              <p className="text-3xl text-secondary  ">
+                {' '}
+                {userBorrowInformation.availableToBorrow ?? 0}
+              </p>
               <div className="size-8">
                 <CoinIcon />
               </div>
@@ -48,7 +188,8 @@ const LendingPage = () => {
 
         <div className="mt-4 flex items-center justify-end font-prototype tracking-widest">
           <p className="text-2xl text-white">
-            Health Factor: <span className="text-secondary">1.12</span>
+            Health Factor:{' '}
+            <span className="text-secondary">{userBorrowInformation.healthFactor ?? 8}</span>
           </p>
         </div>
 
@@ -56,27 +197,31 @@ const LendingPage = () => {
           <div className="col-span-1 flex h-full flex-col items-start justify-start gap-8 p-4 font-prototype text-2xl tracking-wider">
             <button
               className={
-                selectedTab === '1' ? 'text-secondary ' : 'text-white hover:text-secondary'
+                view === 'depositAPT' ? 'text-secondary ' : 'text-white hover:text-secondary'
               }
-              onClick={() => setSelectedTab('1')}
+              onClick={() => setSearchParams({ view: 'depositAPT' })}
             >
               Deposit APT
             </button>
             <button
-              className={selectedTab === '2' ? 'text-secondary' : 'text-white hover:text-secondary'}
-              onClick={() => setSelectedTab('2')}
+              className={
+                view === 'depositNFT' ? 'text-secondary' : 'text-white hover:text-secondary'
+              }
+              onClick={() => setSearchParams({ view: 'depositNFT' })}
             >
               Deposit Collateral
             </button>
             <button
-              className={selectedTab === '3' ? 'text-secondary' : 'text-white hover:text-secondary'}
-              onClick={() => setSelectedTab('3')}
+              className={
+                view === 'borrowAPT' ? 'text-secondary' : 'text-white hover:text-secondary'
+              }
+              onClick={() => setSearchParams({ view: 'borrowAPT' })}
             >
               Borrow APT
             </button>
           </div>
           <div className="col-span-3 size-full rounded-2xl border-b-8 border-primary bg-card p-8 text-lg text-white">
-            <div className={selectedTab === '1' ? 'block' : 'hidden'}>
+            <div className={view === 'depositAPT' ? 'block' : 'hidden'}>
               <h3 className="text-center font-prototype text-3xl">
                 Enter <span className="text-primary"> deposit amount</span>
               </h3>
@@ -85,7 +230,10 @@ const LendingPage = () => {
                 <div className="flex flex-col items-center justify-start gap-2 text-2xl">
                   <p className="text-center font-semibold"> Total deposited</p>
                   <div className="flex items-center justify-start gap-2">
-                    <p className="font-bold text-primary"> 100</p>
+                    <p className="font-bold text-primary">
+                      {' '}
+                      {fromDecimals(userDepositInformation, 6)}
+                    </p>
                     <div className="size-8">
                       <CoinIcon />
                     </div>
@@ -95,7 +243,10 @@ const LendingPage = () => {
                 <div className="flex flex-col items-center justify-start gap-2 text-2xl">
                   <p className="text-center font-semibold"> Deposit APR</p>
                   <div className="flex items-center justify-start gap-2">
-                    <p className="font-bold text-secondary"> 3.8%</p>
+                    <p className="font-bold text-secondary">
+                      {' '}
+                      {fromDecimals(marketConfig.depositAPY, 3)}%
+                    </p>
                     <div className="size-8">
                       <CoinIcon />
                     </div>
@@ -104,37 +255,57 @@ const LendingPage = () => {
               </div>
 
               <div className="mt-8 flex items-center justify-start gap-8 font-prototype text-xl">
-                <button className="rounded-full border-2 border-primary px-6 py-2 text-primary">
-                  {'Withdraw'}
+                <button
+                  onClick={() => setWithdrawDepositSelector('withdraw')}
+                  className={cn(
+                    'rounded-full border-2 px-6 py-2',
+                    withDrawDepositSelector === 'withdraw'
+                      ? 'border-primary text-primary'
+                      : 'border-transparent text-white hover:text-primary'
+                  )}
+                >
+                  Withdraw
                 </button>
-                <button className="horver:text-primary text-white underline-offset-1">
+                <button
+                  onClick={() => setWithdrawDepositSelector('deposit')}
+                  className={cn(
+                    'rounded-full border-2 px-6 py-2',
+                    withDrawDepositSelector === 'deposit'
+                      ? 'border-secondary text-secondary'
+                      : 'border-transparent text-white hover:text-secondary'
+                  )}
+                >
                   Deposit
                 </button>
               </div>
-              <div className="mt-4 flex items-center justify-between rounded-xl bg-[#484549] px-12 py-4">
-                <div className="flex flex-col items-start justify-start gap-2 text-xl">
-                  <p className="text-left"> Amount</p>
-                  <p className="text-left"> 100</p>
-                </div>
-
-                <div className="flex flex-col items-end justify-start gap-2 text-xl">
-                  <p className="text-center font-semibold"> Balance: 200</p>
-                  <div className="flex items-center justify-start gap-2">
-                    <div className="size-8">
-                      <CoinIcon />
-                    </div>
-                    <p> APT</p>
-                  </div>
-                </div>
-              </div>
+              <APTInput
+                className="mt-10"
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onChange={(e: any) => {
+                  onValueChange(e, setWithdrawDepositAmount);
+                }}
+                value={withdrawDepositAmount}
+              />
 
               <div className="mt-8 flex items-center justify-center">
-                <button className="rounded-lg bg-secondary px-8 py-2 font-bold text-black ">
-                  Deposit
+                <button
+                  onClick={async () => {
+                    if (withDrawDepositSelector === 'deposit') {
+                      await handleDeposit();
+                    } else {
+                      await handleWithdraw();
+                    }
+                  }}
+                  className={cn(
+                    'rounded-lg  px-8 py-2 font-bold text-black',
+                    withDrawDepositSelector === 'deposit' ? 'bg-secondary' : 'bg-primary'
+                  )}
+                >
+                  {withDrawDepositSelector === 'deposit' ? 'Deposit' : 'Withdraw'}
                 </button>
               </div>
             </div>
-            <div className={selectedTab === '2' ? 'block' : 'hidden'}>
+            <div className={view === 'depositNFT' ? 'block' : 'hidden'}>
               <h3 className="text-center font-prototype text-3xl">
                 Select <span className="text-primary">NFT</span> Collaterals
               </h3>
@@ -143,7 +314,7 @@ const LendingPage = () => {
                 <div className="flex flex-col items-center justify-start gap-2 text-2xl">
                   <p className="text-center font-normal">Total collateral</p>
                   <div className="flex items-center justify-start gap-2">
-                    <p className="font-bold text-primary"> 80</p>
+                    <p className="font-bold text-primary"> {collaterals.length}</p>
                     <div className="size-8">
                       <CoinIcon />
                     </div>
@@ -153,7 +324,10 @@ const LendingPage = () => {
                 <div className="flex flex-col items-center justify-start gap-2 text-2xl">
                   <p className="text-center font-normal">Available to borrow</p>
                   <div className="flex items-center justify-start gap-2">
-                    <p className="font-bold text-primary"> 80</p>
+                    <p className="font-bold text-primary">
+                      {' '}
+                      {userBorrowInformation.availableToBorrow}
+                    </p>
                     <div className="size-8">
                       <CoinIcon />
                     </div>
@@ -173,56 +347,51 @@ const LendingPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="border-r-2 border-white py-4">
-                        <div className="flex justify-center">
-                          <button type="button" className="size-8 rounded-full bg-white"></button>
-                        </div>
-                      </td>
-                      <td className="border-r-2 border-white py-4">
-                        <div className="flex justify-center">
-                          <img src="/images/token_4.png" alt="NFT" className="size-32" />
-                        </div>
-                      </td>
-                      <td className="py-4 text-center">Aptos monkey #18</td>
-                    </tr>
-                    <tr>
-                      <td className="border-r-2 border-white py-4">
-                        <div className="flex justify-center">
-                          <button type="button" className="size-8 rounded-full bg-white"></button>
-                        </div>
-                      </td>
-                      <td className="border-r-2 border-white py-4">
-                        <div className="flex justify-center">
-                          <img src="/images/token_4.png" alt="NFT" className="size-32" />
-                        </div>
-                      </td>
-                      <td className="py-4 text-center">Aptos monkey #18</td>
-                    </tr>
-                    <tr>
-                      <td className="border-r-2 border-white py-4">
-                        <div className="flex justify-center">
-                          <button type="button" className="size-8 rounded-full bg-white"></button>
-                        </div>
-                      </td>
-                      <td className="border-r-2 border-white py-4">
-                        <div className="flex justify-center">
-                          <img src="/images/token_4.png" alt="NFT" className="size-32" />
-                        </div>
-                      </td>
-                      <td className="py-4 text-center">Aptos monkey #18</td>
-                    </tr>
+                    {userNFTList.map((nft, index) => {
+                      return (
+                        <tr key={nft.tokenId + nft.collectionName}>
+                          <td className="border-r-2 border-white py-4">
+                            <div className="flex justify-center">
+                              <button
+                                onClick={() => {
+                                  handleSelectNFT(index);
+                                }}
+                                type="button"
+                                className={cn(
+                                  'size-8 rounded-full flex items-center justify-center',
+                                  selectedNFTs[index] ? 'bg-[#3F3F3F]' : 'bg-[#D9D9D9]'
+                                )}
+                              >
+                                <img
+                                  src="/Tick.svg"
+                                  className={cn('size-8', !selectedNFTs[index] && 'hidden')}
+                                />
+                              </button>
+                            </div>
+                          </td>
+                          <td className="border-r-2 border-white py-4">
+                            <div className="flex justify-center">
+                              <img src={nft.tokenUri} alt="NFT" className="size-32 object-cover" />
+                            </div>
+                          </td>
+                          <td className="py-4 text-center">{nft.tokenName}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
 
               <div className="mt-8 flex items-center justify-center">
-                <button className="rounded-lg bg-secondary px-8 py-2 font-bold text-black ">
+                <button
+                  onClick={handleDepositNFT}
+                  className="rounded-lg bg-secondary px-8 py-2 font-bold text-black "
+                >
                   Deposit
                 </button>
               </div>
             </div>
-            <div className={selectedTab === '3' ? 'block' : 'hidden'}>
+            <div className={view === 'borrowAPT' ? 'block' : 'hidden'}>
               <h3 className="text-center font-prototype text-3xl">
                 Enter <span className="text-primary"> borrow amount</span>
               </h3>
@@ -231,7 +400,7 @@ const LendingPage = () => {
                 <div className="flex flex-col items-center justify-start gap-2 text-xl">
                   <p className="text-center "> Borrowed amount</p>
                   <div className="flex items-center justify-start gap-2">
-                    <p className="font-bold text-primary"> 20</p>
+                    <p className="font-bold text-primary"> {userBorrowInformation.borrowAmount}</p>
                     <div className="size-8">
                       <CoinIcon />
                     </div>
@@ -240,35 +409,35 @@ const LendingPage = () => {
 
                 <div className="flex flex-col items-end justify-start gap-2 text-xl">
                   <p className="text-center ">
-                    {'Borrow APT: '}
-                    <span className="font-bold text-secondary">8%</span>
+                    {'Borrow APR: '}
+                    <span className="font-bold text-secondary">
+                      {fromDecimals(marketConfig.borrowAPY, 3)}%
+                    </span>
                   </p>
                   <p className="text-center ">
                     {'Health Factor: '}
-                    <span className="font-bold text-secondary">1.18</span>
+                    <span className="font-bold text-secondary">
+                      {userBorrowInformation.healthFactor}
+                    </span>
                   </p>
                 </div>
               </div>
 
-              <div className="mt-8 flex items-center justify-between rounded-xl bg-[#484549] px-12 py-4">
-                <div className="flex flex-col items-start justify-start gap-2 text-xl">
-                  <p className="text-left"> Amount</p>
-                  <p className="text-left"> 100</p>
-                </div>
-
-                <div className="flex flex-col items-end justify-start gap-2 text-xl">
-                  <p className="text-center font-semibold"> Balance: 200</p>
-                  <div className="flex items-center justify-start gap-2">
-                    <div className="size-8">
-                      <CoinIcon />
-                    </div>
-                    <p> APT</p>
-                  </div>
-                </div>
-              </div>
-
+              <APTInput
+                className="mt-10"
+                value={borrowAmount}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onChange={(e: any) => {
+                  onValueChange(e, setBorrowAmount);
+                }}
+              />
               <div className="mt-8 flex items-center justify-center">
-                <button className="rounded-lg bg-secondary px-8 py-2 font-bold text-black ">
+                <button
+                  onClick={async () => {
+                    await handleBorrow();
+                  }}
+                  className="rounded-lg bg-secondary px-8 py-2 font-bold text-black "
+                >
                   Borrow
                 </button>
               </div>

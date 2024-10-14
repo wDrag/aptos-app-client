@@ -70,6 +70,7 @@ export const CONTRACT_VIEWS: Record<string, `${string}::${string}::${string}`> =
   LP_GET_COLLATERAL_NUMBERS: `${CONTRACT_ADDRESS}::lending_pool::get_collateral_numbers`,
   LP_GET_LENDER_INFORMATION: `${CONTRACT_ADDRESS}::lending_pool::get_lender_information`,
   LP_GET_MARKET_CONFIGURATION: `${CONTRACT_ADDRESS}::lending_pool::get_market_configuration`,
+  FAM_GET_BALANCE: `${CONTRACT_ADDRESS}::fungible_asset_minter::get_balance`,
 };
 
 export const ORACLE_FUNCTIONS: Record<string, `${string}::${string}::${string}`> = {

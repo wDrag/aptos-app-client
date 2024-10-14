@@ -120,7 +120,7 @@ export const Header = () => {
         <h1 className="text-4xl font-bold tracking-wider text-primary">Megaloandon</h1>
       </a>
       <div className="flex items-center justify-end gap-4">
-        <NavigationMenu>
+        <NavigationMenu className="[&_.absolute]:translate-x-[6.75rem]">
           <NavigationMenuList>
             {MenuItems.map((item) => {
               return (

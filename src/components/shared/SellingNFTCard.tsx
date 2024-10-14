@@ -29,7 +29,7 @@ export const SellingNFTCard = (props: SellingNFTCardProps) => {
   return (
     <div
       className={cn(
-        'flex flex-col w-64 bg-[#2D2E2F] items-start justify-center gap-3 rounded-2xl border border-solid border-[#D9D9D9] overflow-hidden pb-4',
+        'flex flex-col w-72 bg-[#2D2E2F] items-start justify-center gap-3 rounded-2xl border border-solid border-[#D9D9D9] overflow-hidden pb-4',
         className
       )}
     >

@@ -29,7 +29,13 @@ export const useGetLendingPoolBorrowerInformationQuery = (props: IGetBorrowerInf
         }
       );
 
-      return response;
+      return {
+        borrowAmount: response[0],
+        repaidAmount: response[1],
+        totalCollateralAmount: response[2],
+        healthFactor: response[3],
+        availableToBorrow: response[4],
+      };
     },
   });
 };

@@ -17,19 +17,16 @@ html {
   letter-spacing: 0.5px;
 }
 
-
-
-.html::-webkit-scrollbar,
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
 }
 
-.body {
+body {
   margin: 0;
   padding: 0;
   -ms-overflow-style: none;
 }
-
 
 @layer base {
   :root {

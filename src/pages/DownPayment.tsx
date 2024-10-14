@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
 import { CoinIcon } from '@/components/icons/coin';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib';
 
 const DownPaymentPage = () => {
-  const [selectedMarket, setSelectedMarket] = useState('0');
+  const [selectedMarket, setSelectedMarket] = useState<string>('Blue Move');
   const [selectedStep, setSelectedStep] = useState('1');
 
   return (
@@ -22,11 +24,11 @@ const DownPaymentPage = () => {
           <div className="col-span-1 flex flex-col items-center justify-center gap-2 text-2xl">
             <button
               className={
-                selectedMarket === '1'
+                selectedMarket === 'Blue Move'
                   ? 'rounded-xl border-2 border-white bg-primary p-6 shadow shadow-white'
                   : 'rounded-xl border-2 border-white p-6 text-white shadow shadow-white hover:bg-primary'
               }
-              onClick={() => setSelectedMarket('1')}
+              onClick={() => setSelectedMarket('Blue Move')}
             >
               <div className="size-24 rounded-full">
                 <img
@@ -41,11 +43,11 @@ const DownPaymentPage = () => {
           <div className="col-span-1 flex flex-col items-center justify-center gap-2 text-2xl">
             <button
               className={
-                selectedMarket === '2'
+                selectedMarket === 'Wapal'
                   ? 'rounded-xl border-2 border-white bg-primary p-6 shadow shadow-white'
                   : 'rounded-xl border-2 border-white p-6 text-white shadow shadow-white hover:bg-primary'
               }
-              onClick={() => setSelectedMarket('2')}
+              onClick={() => setSelectedMarket('Wapal')}
             >
               <div className="size-24 rounded-full">
                 <img src="/icons/wapal.jpeg" alt="Wapal" className="size-full rounded-full" />
@@ -73,7 +75,7 @@ const DownPaymentPage = () => {
       <div className={selectedStep === '2' ? 'mt-12 block' : 'hidden'}>
         <h3 className="text-center text-3xl font-semibold">
           Buy from
-          <span className=" text-secondary"> Blue Move marketplace</span>
+          <span className=" text-secondary"> {selectedMarket} marketplace</span>
         </h3>
 
         <div className="mt-12 items-center px-64">
@@ -89,6 +91,17 @@ const DownPaymentPage = () => {
               <div className="flex justify-end">
                 <button className="h-auto rounded-lg bg-primary px-6 py-2">Choose ID</button>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 items-center px-64">
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-2">
+              <span className="text-xl font-semibold text-primary">Collection Name</span>
+              <Input
+                className={cn('rounded-xl border bg-[#27272A] p-4 shadow-lg shadow-primary')}
+              />
             </div>
           </div>
         </div>
@@ -112,7 +125,7 @@ const DownPaymentPage = () => {
       <div className={selectedStep === '3' ? 'mt-12 block' : 'hidden'}>
         <h3 className="text-center text-3xl font-semibold">
           Buy from
-          <span className=" text-secondary"> Blue Move marketplace</span>
+          <span className=" text-secondary"> {selectedMarket} marketplace</span>
         </h3>
 
         <div className="mt-12 items-center px-64">

@@ -138,10 +138,7 @@ const LendingPage = () => {
         <div className="grid grid-cols-4 gap-8 font-prototype text-xl tracking-wider text-white ">
           <div className="col-span-1 h-full rounded-xl bg-[#2E2733] p-4">
             <div className="flex items-center justify-start gap-3">
-              <p className="text-3xl text-primary">
-                {' '}
-                {formatNumber(fromDecimals(marketConfig.totalDeposit, 6))}
-              </p>
+              <p className="text-3xl text-primary"> {fromDecimals(marketConfig.totalDeposit, 6)}</p>
               <div className="size-8">
                 <CoinIcon />
               </div>
@@ -176,7 +173,7 @@ const LendingPage = () => {
             <div className="flex items-center justify-start gap-3">
               <p className="text-3xl text-secondary  ">
                 {' '}
-                {userBorrowInformation.availableToBorrow ?? 0}
+                {fromDecimals(userBorrowInformation.availableToBorrow, 6)}
               </p>
               <div className="size-8">
                 <CoinIcon />
@@ -245,7 +242,7 @@ const LendingPage = () => {
                   <div className="flex items-center justify-start gap-2">
                     <p className="font-bold text-secondary">
                       {' '}
-                      {fromDecimals(marketConfig.depositAPY, 3)}%
+                      {fromDecimals(marketConfig.depositAPY, 4)}%
                     </p>
                     <div className="size-8">
                       <CoinIcon />
@@ -411,7 +408,7 @@ const LendingPage = () => {
                   <p className="text-center ">
                     {'Borrow APR: '}
                     <span className="font-bold text-secondary">
-                      {fromDecimals(marketConfig.borrowAPY, 3)}%
+                      {fromDecimals(marketConfig.borrowAPY, 4)}%
                     </span>
                   </p>
                   <p className="text-center ">

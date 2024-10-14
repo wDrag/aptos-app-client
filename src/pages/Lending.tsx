@@ -245,7 +245,7 @@ const LendingPage = () => {
                   <div className="flex items-center justify-start gap-2">
                     <p className="font-bold text-secondary">
                       {' '}
-                      {fromDecimals(marketConfig.depositAPY, 3)}%
+                      {fromDecimals(marketConfig.depositAPY, 4)}%
                     </p>
                     <div className="size-8">
                       <CoinIcon />
@@ -411,7 +411,7 @@ const LendingPage = () => {
                   <p className="text-center ">
                     {'Borrow APR: '}
                     <span className="font-bold text-secondary">
-                      {fromDecimals(marketConfig.borrowAPY, 3)}%
+                      {fromDecimals(marketConfig.borrowAPY, 4)}%
                     </span>
                   </p>
                   <p className="text-center ">

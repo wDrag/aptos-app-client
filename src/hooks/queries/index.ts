@@ -19,6 +19,7 @@ export * from './useGetExchangeNumbersInstantlyNFTQuery';
 export * from './useGetExchangeNumbersOffersNFTQuery';
 export * from './useGetExchangeOfferNFTQuery';
 export * from './useGetExchangeOfferQuery';
+export * from './useGetLendingPoolAllCollateralQuery';
 export * from './useGetLendingPoolAllUserDepositQuery';
 export * from './useGetLendingPoolBorrowerInformationQuery';
 export * from './useGetLendingPoolCollateralNumbersQuery';

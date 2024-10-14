@@ -7,7 +7,7 @@ interface IGetCollateralNumbersProps {
   ownerAddress: string;
 }
 
-export const useGetCollateralNumbersQuery = (props: IGetCollateralNumbersProps) => {
+export const useGetLendingPoolCollateralNumbersQuery = (props: IGetCollateralNumbersProps) => {
   const { ownerAddress } = props;
 
   return useQuery({

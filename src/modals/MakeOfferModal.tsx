@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useExchangeAddOfferMutation } from '@/hooks/mutations';
 import { useGetExchangeAllOfferQuery, useGetOracleFloorPriceQuery } from '@/hooks/queries';
-import { toShortAddress, tryParseInt } from '@/lib';
+import { onValueChange, toShortAddress, tryParseInt } from '@/lib';
 
 interface MakeOfferModalProps {
   onClose?: () => void;
@@ -49,24 +49,6 @@ export const MakeOfferModal = NiceModal.create((props: MakeOfferModalProps) => {
       offerTime,
       closeModal,
     });
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onValueChange = (e: any) => {
-    const rawValue = e?.target?.value;
-    let cleanValue = rawValue.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-    const dotIndex = cleanValue.indexOf('.');
-    if (dotIndex !== -1) {
-      const beforeDot = cleanValue.slice(0, dotIndex + 1);
-      const afterDot = cleanValue.slice(dotIndex + 1).replace(/\./g, '');
-      cleanValue = beforeDot + afterDot;
-    }
-    const parsedValue = parseInt(cleanValue);
-    if (isNaN(parsedValue)) {
-      setOfferPrice('');
-      return;
-    }
-    setOfferPrice(cleanValue.toString());
   };
 
   return (
@@ -119,7 +101,14 @@ export const MakeOfferModal = NiceModal.create((props: MakeOfferModalProps) => {
               </div>
             )}
 
-            <APTInput type="text" onChange={onValueChange} value={offerPrice} />
+            <APTInput
+              type="text"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              onChange={(e: any) => {
+                onValueChange(e.target.value, setOfferPrice);
+              }}
+              value={offerPrice}
+            />
 
             <Button
               onClick={addOffer}

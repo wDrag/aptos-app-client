@@ -23,7 +23,11 @@ export const useGetLendingPoolMarketConfigurationQuery = () => {
         }
       );
 
-      return response;
+      return {
+        totalDeposit: response[0],
+        depositAPY: response[1],
+        borrowAPY: response[2],
+      };
     },
   });
 };

@@ -1,6 +1,7 @@
 export const QUERY_KEYS = {
   GET_TOKENS: 'getTokens',
   FAM_GET_BALANCE: 'getMockAPTBalance',
+  LP_GET_ALL_COLLATERAL: 'getAllCollateral',
   EX_GET_ALL_OFFER: 'getAllOffer',
   DA_GET_ADDRESS_DEBT_TOKEN: 'getAddressDebtToken',
   DA_GET_ADDRESS_TOKEN: 'getAddressToken',

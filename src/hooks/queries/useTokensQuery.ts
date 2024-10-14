@@ -21,7 +21,11 @@ export const useTokensQuery = () => {
         accountAddress: AccountAddress.fromString(account.address),
       });
 
-      return tokensData.map((token) => {
+      const filteredTokensData = tokensData.filter(
+        (token) => token.current_token_data?.current_collection?.collection_name !== 'Megaloandon'
+      );
+
+      return filteredTokensData.map((token) => {
         return {
           ownerAddress: token.owner_address,
           collectionName: token.current_token_data?.current_collection?.collection_name || '',

@@ -29,7 +29,7 @@ export const useGetLendingPoolLenderInformationQuery = (props: IGetLenderInforma
         }
       );
 
-      return response;
+      return response[0];
     },
   });
 };

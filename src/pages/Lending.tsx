@@ -53,7 +53,7 @@ const LendingPage = () => {
     lenderAddress: account?.address || '',
   });
 
-  const [withdrawDepositAmount, setWithdrawDepositAmount] = useState<string>('0');
+  const [withdrawDepositAmount, setWithdrawDepositAmount] = useState<string>('');
   const [withDrawDepositSelector, setWithdrawDepositSelector] = useState<string>('deposit');
 
   const withdrawMutation = useLendingPoolWithdrawMutation();
@@ -121,7 +121,7 @@ const LendingPage = () => {
     await refetchAllData();
   };
 
-  const [borrowAmount, setBorrowAmount] = useState<string>('0');
+  const [borrowAmount, setBorrowAmount] = useState<string>('');
 
   const borrowMutation = useLendingPoolBorrowMutation();
 

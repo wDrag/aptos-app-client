@@ -16,7 +16,7 @@ export const useGetDigitalAssetTokensDataQuery = (props: IGetTokenDataProps) => 
 
   return useQuery({
     queryKey: [
-      QUERY_KEYS.DA_GET_TOKEN_DATA,
+      QUERY_KEYS.DA_GET_TOKENS_DATA,
       tokenInfos?.map((tokenInfo) => tokenInfo.collectionName + tokenInfo.tokenId).join(','),
     ],
     queryFn: async () => {

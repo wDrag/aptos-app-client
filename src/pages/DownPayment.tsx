@@ -28,7 +28,7 @@ const DownPaymentPage = () => {
   };
 
   return (
-    <div className="h-screen w-full bg-[url('/bg.png')] bg-cover bg-center p-32 text-lg">
+    <div className="min-h-screen w-full bg-[url('/bg.png')] bg-cover bg-center p-32 text-lg">
       <h1 className="text-center font-prototype text-[64px] font-semibold text-white">
         Down Payment Buy
       </h1>

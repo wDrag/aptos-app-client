@@ -24,6 +24,8 @@ const DownPaymentPage = () => {
   const [collectionName, setCollectionName] = useState<string>('');
   const [tokenId, setTokenId] = useState<string>('');
 
+  const [selectedCollectionUri, setSelectedCollectionUri] = useState<string>('');
+
   const { data: tokenData } = useGetDigitalAssetTokenDataQuery({
     collectionName,
     tokenId,
@@ -130,6 +132,9 @@ const DownPaymentPage = () => {
                           className="flex cursor-pointer gap-4 !p-3 [&_.absolute]:hidden"
                           key={collection.name}
                           value={collection.name}
+                          onClick={() => {
+                            setSelectedCollectionUri(collection.ipfsUri);
+                          }}
                         >
                           <img
                             src={fromIpfs(collection.ipfsUri)}
@@ -142,11 +147,20 @@ const DownPaymentPage = () => {
                     </DropdownMenuRadioGroup>
                   </DropdownMenuContent>
                 </DropdownMenu>
+                <img
+                  src={fromIpfs(selectedCollectionUri)}
+                  alt="collection"
+                  className={cn(
+                    'absolute w-10 object-cover left-3 top-3 rounded-full',
+                    !selectedCollectionUri && 'hidden'
+                  )}
+                />
+
                 <Input
                   value={collectionName}
                   disabled
                   className={cn(
-                    'rounded-xl disabled:opacity-100 border bg-[#27272A] p-8 shadow-lg shadow-primary text-2xl text-white'
+                    'rounded-xl disabled:opacity-100 border bg-[#27272A] p-8 shadow-lg shadow-primary text-2xl text-white pl-16'
                   )}
                 />
               </div>
@@ -174,7 +188,8 @@ const DownPaymentPage = () => {
             Cancel
           </button>
           <button
-            className="rounded-lg bg-secondary px-8 py-2 font-bold text-black "
+            className="rounded-lg bg-secondary px-8 py-2 font-bold text-black disabled:opacity-20"
+            disabled={!tokenData?.tokenName}
             onClick={() => {
               if (!tokenData?.tokenName) return;
               setSelectedStep('3');

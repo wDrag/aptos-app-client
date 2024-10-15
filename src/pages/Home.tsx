@@ -9,7 +9,8 @@ const HomePage = () => {
 
   return (
     <div className="w-full bg-[url('/bg.png')] bg-repeat px-32 pt-32 text-lg">
-      <div className="">
+      <div className="relative">
+        <div className="absolute -right-20 top-20 size-[720px] rounded-full bg-[radial-gradient(#A528FF_0%,_#A528FF30_40%)] blur-[320px] " />
         <div className="grid grid-cols-3 items-center">
           <div className="col-span-2 text-white">
             <h1 className="my-1 font-prototype text-[60px] font-semibold leading-[95px]">
@@ -36,7 +37,7 @@ const HomePage = () => {
           <div className="flex flex-col items-center justify-center border-r-2 border-white px-4  pr-12">
             <h3 className="text-base">Total Volume</h3>
             <div className="mt-2 flex items-center justify-center gap-3">
-              <p className="font-prototype text-3xl font-bold text-secondary">$7.94m</p>
+              <p className="font-prototype text-3xl font-bold text-secondary">$7.94M</p>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center px-4">
@@ -72,7 +73,7 @@ const HomePage = () => {
             }}
             className="rounded-full bg-secondary px-8 py-2"
           >
-            Earn APT now
+            Earn APR now
           </button>
           <button
             onClick={() => {
@@ -121,7 +122,8 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="px-24 py-12">
+        <div className="relative px-24 py-12">
+          <div className="absolute -right-32 top-40 size-[720px] rounded-full bg-[radial-gradient(#A528FF_0%,_#A528FF30_40%)] blur-[320px] " />
           <div className="flex items-start justify-center">
             <h4 className="mt-1 text-center text-[48px] font-bold text-secondary">Solution</h4>
             <div className="ml-[-15px] mt-[-20px] size-10">

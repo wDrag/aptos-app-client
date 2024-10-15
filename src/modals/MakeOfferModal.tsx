@@ -54,7 +54,7 @@ export const MakeOfferModal = NiceModal.create((props: MakeOfferModalProps) => {
   return (
     <div className="flex w-[600px]">
       <Dialog open onOpenChange={closeModal}>
-        <DialogContent className="flex min-w-[720px] flex-col gap-6">
+        <DialogContent className="flex min-w-[840px] flex-col gap-6">
           <DialogTitle className="text-center text-3xl font-semibold">
             <span className="text-white">Make </span>
             <span className="text-[#D1F608]">Offer</span>

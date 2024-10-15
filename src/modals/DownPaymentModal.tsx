@@ -40,7 +40,7 @@ export const DownPaymentModal = NiceModal.create((props: DownPaymentModalProps) 
   return (
     <div className="flex w-[600px]">
       <Dialog open onOpenChange={closeModal}>
-        <DialogContent className="flex min-w-[720px] flex-col gap-6">
+        <DialogContent className="flex min-w-[840px] flex-col gap-6">
           <DialogTitle className="text-center text-3xl font-semibold">
             <span className="text-[#A66AFE]">Down </span>
             <span className="text-white">Payment</span>

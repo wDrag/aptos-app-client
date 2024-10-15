@@ -7,6 +7,7 @@ const config = {
     './src/**/*.{ts,tsx}',
   ],
   prefix: '',
+  plugins: [require('tailwind-scrollbar')],
   theme: {
     container: {
       center: true,

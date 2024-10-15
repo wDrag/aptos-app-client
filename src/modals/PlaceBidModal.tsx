@@ -6,7 +6,10 @@ import { CoinIcon } from '@/components/icons/coin';
 import { APTInput } from '@/components/shared';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { QUERY_KEYS } from '@/constants';
-import { useEnglishAuctionPlaceBidMutation } from '@/hooks/mutations';
+import {
+  useEnglishAuctionInitializeWithBidMutation,
+  useEnglishAuctionPlaceBidMutation,
+} from '@/hooks/mutations';
 import { useGetEnglishAuctionCheckIfFirstBidQuery } from '@/hooks/queries';
 import { cn, fromDecimals, onValueChange, tryParseInt } from '@/lib';
 
@@ -61,6 +64,8 @@ export const PlaceBidModal = NiceModal.create((props: PlaceBidModalProps) => {
 
   const placeBidMutation = useEnglishAuctionPlaceBidMutation();
 
+  const placeFirstBidMutation = useEnglishAuctionInitializeWithBidMutation();
+
   const queryClient = useQueryClient();
   const refetchData = async () => {
     await queryClient.invalidateQueries({
@@ -78,18 +83,27 @@ export const PlaceBidModal = NiceModal.create((props: PlaceBidModalProps) => {
   };
 
   const handlePlaceBid = async () => {
-    await placeBidMutation.mutateAsync({
-      collectionName,
-      tokenId,
-      bidAmount: parseFloat(bidAmount),
-      closeModal,
-    });
+    if (isFirstBid) {
+      await placeFirstBidMutation.mutateAsync({
+        collectionName,
+        tokenId,
+        bidAmount: parseFloat(bidAmount),
+        closeModal,
+      });
+    } else {
+      await placeBidMutation.mutateAsync({
+        collectionName,
+        tokenId,
+        bidAmount: parseFloat(bidAmount),
+        closeModal,
+      });
+    }
     await refetchData();
   };
 
   return (
     <Dialog open onOpenChange={closeModal}>
-      <DialogContent className="mt-20 min-w-[960px] rounded-2xl border-b-8 border-primary bg-card p-8 text-lg text-white">
+      <DialogContent className="min-w-[960px] rounded-2xl border-b-8 border-primary bg-card p-8 text-lg text-white">
         <div className="">
           <h3 className="text-center text-3xl font-semibold">
             Place <span className="text-secondary"> Bid</span>
@@ -118,7 +132,10 @@ export const PlaceBidModal = NiceModal.create((props: PlaceBidModalProps) => {
                 <div className="flex flex-col items-center justify-start gap-2 ">
                   <p className="text-center font-semibold"> Highest Bid</p>
                   <div className="flex items-center justify-start gap-2">
-                    <p className="text-2xl font-bold text-primary"> {currentBidAmount}</p>
+                    <p className="text-2xl font-bold text-primary">
+                      {' '}
+                      {fromDecimals(parseFloat(currentBidAmount), 6)}
+                    </p>
                     <div className="size-8">
                       <CoinIcon />
                     </div>

@@ -4,7 +4,7 @@ import { CoinIcon } from '@/components/icons/coin';
 import { Input } from '@/components/ui/input';
 import { useExchangeBuyWithDownPaymentMutation } from '@/hooks/mutations';
 import { useGetDigitalAssetTokenDataQuery } from '@/hooks/queries';
-import { cn } from '@/lib';
+import { cn, fromIpfs } from '@/lib';
 
 const DownPaymentPage = () => {
   const [selectedMarket, setSelectedMarket] = useState<string>('Blue Move');
@@ -101,15 +101,18 @@ const DownPaymentPage = () => {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2">
               <span className="text-xl font-semibold text-secondary">Collection Name</span>
-              <Input
-                value={collectionName}
-                onChange={(e) => {
-                  setCollectionName(e.target.value);
-                }}
-                className={cn(
-                  'rounded-xl border bg-[#27272A] p-8 shadow-lg shadow-primary text-2xl text-white'
-                )}
-              />
+              <div className="relative flex">
+                <Input
+                  value={collectionName}
+                  disabled
+                  onChange={(e) => {
+                    setCollectionName(e.target.value);
+                  }}
+                  className={cn(
+                    'rounded-xl border bg-[#27272A] p-8 shadow-lg shadow-primary text-2xl text-white'
+                  )}
+                />
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <span className="text-xl font-semibold text-secondary">Token ID</span>
@@ -152,7 +155,7 @@ const DownPaymentPage = () => {
           <div className="flex items-start justify-center gap-12">
             <div className="size-48">
               <img
-                src={tokenData?.tokenUri}
+                src={fromIpfs(tokenData?.tokenUri)}
                 alt="avatar"
                 className="size-full rounded object-cover"
               />

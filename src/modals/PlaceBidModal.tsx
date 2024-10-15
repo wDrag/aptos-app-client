@@ -11,7 +11,7 @@ import {
   useEnglishAuctionPlaceBidMutation,
 } from '@/hooks/mutations';
 import { useGetEnglishAuctionCheckIfFirstBidQuery } from '@/hooks/queries';
-import { cn, fromDecimals, onValueChange, tryParseInt } from '@/lib';
+import { cn, fromDecimals, fromIpfs, onValueChange, tryParseInt } from '@/lib';
 
 type PlaceBidModalProps = {
   ownerAddress: string;
@@ -125,7 +125,7 @@ export const PlaceBidModal = NiceModal.create((props: PlaceBidModalProps) => {
           </div>
           <div className="mt-2 grid grid-cols-3 gap-16">
             <div className="col-span-1">
-              <img src={tokenUri} alt="token" className="size-full rounded-xl" />
+              <img src={fromIpfs(tokenUri)} alt="token" className="size-full rounded-xl" />
             </div>
             <div className="col-span-2">
               <div className="flex items-center justify-between">

@@ -3,6 +3,7 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useExchangeListOfferNFTMutation } from '@/hooks/mutations';
+import { fromIpfs } from '@/lib';
 
 interface ListForOfferModalProps {
   onClose?: () => void;
@@ -43,7 +44,11 @@ export const ListForOfferModal = NiceModal.create((props: ListForOfferModalProps
             <span className="text-[#D1F608]">Listing</span>
           </DialogTitle>
           <div className="flex w-full items-start justify-between gap-16 px-6 pb-3">
-            <img src={tokenUri} alt="Token" className="size-56 flex-none rounded-md object-cover" />
+            <img
+              src={fromIpfs(tokenUri)}
+              alt="Token"
+              className="size-56 flex-none rounded-md object-cover"
+            />
 
             <div className="flex flex-none flex-col items-start justify-start gap-4">
               <span className="text-start text-3xl font-bold">{tokenName}</span>

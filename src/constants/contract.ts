@@ -30,7 +30,7 @@ export const CONTRACT_FUNCTIONS: Record<string, `${string}::${string}::${string}
   LP_BORROW: `${CONTRACT_ADDRESS}::lending_pool::borrow`,
   LP_CREATE_RESERVE: `${CONTRACT_ADDRESS}::lending_pool::create_reserve`,
   LP_DEPOSIT: `${CONTRACT_ADDRESS}::lending_pool::deposit`,
-  LP_DEPOSIT_COLLATERAL: `${CONTRACT_ADDRESS}::lending_pool::deposit_collateral`,
+  LP_DEPOSIT_COLLATERAL: `${CONTRACT_ADDRESS}::lending_pool::deposit_multi_collateral`,
   LP_REPAY: `${CONTRACT_ADDRESS}::lending_pool::repay`,
   LP_WITHDRAW: `${CONTRACT_ADDRESS}::lending_pool::withdraw`,
   MFL_DEPOSIT: `${CONTRACT_ADDRESS}::mock_flash_loan::deposit`,

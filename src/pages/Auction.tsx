@@ -1,14 +1,23 @@
 import NiceModal from '@ebay/nice-modal-react';
 
 import { useGetEnglishAuctionAllNFTToAuctionQuery } from '@/hooks/queries';
-import { fromDecimals } from '@/lib';
+import { fromDecimals, fromIpfs } from '@/lib';
 import { PlaceBidModal } from '@/modals';
+import { useMintAllTokenMutation } from '@/script.local/mintAll';
 
 const AuctionPage = () => {
   const { data: AuctionNFTList = [] } = useGetEnglishAuctionAllNFTToAuctionQuery();
-
+  const mintAllTokenMutation = useMintAllTokenMutation();
   return (
     <div className="min-h-screen w-full overflow-hidden bg-[url('/bg.png')] bg-cover bg-center p-32 text-lg">
+      <button
+        onClick={() => {
+          mintAllTokenMutation.mutate();
+        }}
+      >
+        MINT ALL TOKEN
+      </button>
+
       <h1 className="text-left font-prototype text-[38px] tracking-wide text-white">
         Available to Auction
       </h1>
@@ -18,7 +27,7 @@ const AuctionPage = () => {
             <div className="max-w-64 rounded-xl  border border-solid border-[#D9D9D9] bg-card">
               <div>
                 <img
-                  src={nft.tokenUri}
+                  src={fromIpfs(nft.tokenUri)}
                   alt="token"
                   className="size-full rounded-t-xl object-cover"
                 />

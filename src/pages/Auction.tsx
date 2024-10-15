@@ -3,22 +3,19 @@ import NiceModal from '@ebay/nice-modal-react';
 import { useGetEnglishAuctionAllNFTToAuctionQuery } from '@/hooks/queries';
 import { fromDecimals, fromIpfs } from '@/lib';
 import { PlaceBidModal } from '@/modals';
+// import { useFeedDataMutation } from '@/script.local/feedData';
 // import { useMintAllTokenMutation } from '@/script.local/mintAll';
 
 const AuctionPage = () => {
   const { data: AuctionNFTList = [] } = useGetEnglishAuctionAllNFTToAuctionQuery();
+  // const feedDataMutation = useFeedDataMutation();
   // const mintAllTokenMutation = useMintAllTokenMutation();
   return (
     <div className="min-h-screen w-full overflow-hidden bg-[url('/bg.png')] bg-cover bg-center p-32 text-lg">
-      {/* <button
-        onClick={() => {
-          mintAllTokenMutation.mutate();
-        }}
+      <h1
+        // onClick={() => feedDataMutation.mutate()}
+        className="text-left font-prototype text-[38px] tracking-wide text-white"
       >
-        MINT ALL TOKEN
-      </button> */}
-
-      <h1 className="text-left font-prototype text-[38px] tracking-wide text-white">
         Available to Auction
       </h1>
       <div className="mt-20  grid grid-cols-4 gap-12">

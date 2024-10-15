@@ -20,7 +20,7 @@ import {
   useGetLendingPoolMarketConfigurationQuery,
   useTokensQuery,
 } from '@/hooks/queries';
-import { cn, formatNumber, fromDecimals, onValueChange, tryParseInt } from '@/lib';
+import { cn, formatNumber, fromDecimals, fromIpfs, onValueChange, tryParseInt } from '@/lib';
 
 const LendingPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -109,16 +109,15 @@ const LendingPage = () => {
   const depositNFTMutation = useLendingPoolDepositCollateralMutation();
 
   const handleDepositNFT = async () => {
-    await Promise.all(
-      selectedNFTs.map(async (isSelected, index) => {
-        if (isSelected) {
-          await depositNFTMutation.mutateAsync({
-            collectionName: userNFTList[index].collectionName,
-            tokenId: userNFTList[index].tokenId,
-          });
-        }
-      })
-    );
+    const data: string[] = [];
+    selectedNFTs.map((isSelected, index) => {
+      if (isSelected) {
+        data.push(userNFTList[index].collectionName + '#' + userNFTList[index].tokenId);
+      }
+    });
+    await depositNFTMutation.mutateAsync({
+      data,
+    });
     await refetchAllData();
   };
 
@@ -382,7 +381,11 @@ const LendingPage = () => {
                           </td>
                           <td className="border-r-2 border-white py-4">
                             <div className="flex justify-center">
-                              <img src={nft.tokenUri} alt="NFT" className="size-32 object-cover" />
+                              <img
+                                src={fromIpfs(nft.tokenUri)}
+                                alt="NFT"
+                                className="size-32 object-cover"
+                              />
                             </div>
                           </td>
                           <td className="py-4 text-center">{nft.tokenName}</td>

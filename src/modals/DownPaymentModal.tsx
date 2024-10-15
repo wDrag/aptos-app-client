@@ -3,6 +3,7 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useExchangeBuyWithDownPaymentMutation } from '@/hooks/mutations';
+import { fromIpfs } from '@/lib';
 
 interface DownPaymentModalProps {
   onClose?: () => void;
@@ -45,7 +46,11 @@ export const DownPaymentModal = NiceModal.create((props: DownPaymentModalProps) 
             <span className="text-white">Payment</span>
           </DialogTitle>
           <div className="flex w-full items-start justify-between gap-20 px-3 pb-3">
-            <img src={tokenUri} alt="Token" className="size-56 flex-none rounded-md object-cover" />
+            <img
+              src={fromIpfs(tokenUri)}
+              alt="Token"
+              className="size-56 flex-none rounded-md object-cover"
+            />
 
             <div className="flex flex-none flex-col items-start justify-start gap-6">
               <span className="text-start text-3xl font-bold">{tokenName}</span>

@@ -5,15 +5,13 @@ import { useMutation } from '@tanstack/react-query';
 import { aptosClient } from '@/aptos';
 import { useToast } from '@/components/ui/use-toast';
 import { CONTRACT_FUNCTIONS } from '@/constants';
-import { toU64 } from '@/lib';
 
 export const useLendingPoolDepositCollateralMutation = () => {
   const { account, signAndSubmitTransaction } = useWallet();
   const { toast } = useToast();
 
   interface ILendingPoolDepositCollateralProps {
-    collectionName: string;
-    tokenId: string;
+    data: string[];
   }
 
   return useMutation({
@@ -26,11 +24,11 @@ export const useLendingPoolDepositCollateralMutation = () => {
         return;
       }
 
-      const { collectionName, tokenId } = props;
+      const { data } = props;
 
       const payload: InputGenerateTransactionPayloadData = {
         function: CONTRACT_FUNCTIONS.LP_DEPOSIT_COLLATERAL,
-        functionArguments: [collectionName, toU64(tokenId)],
+        functionArguments: [data],
       };
 
       const response = await signAndSubmitTransaction({

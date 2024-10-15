@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useExchangeAddOfferMutation } from '@/hooks/mutations';
 import { useGetExchangeAllOfferQuery, useGetOracleFloorPriceQuery } from '@/hooks/queries';
-import { onValueChange, toShortAddress, tryParseInt } from '@/lib';
+import { fromIpfs, onValueChange, toShortAddress, tryParseInt } from '@/lib';
 
 interface MakeOfferModalProps {
   onClose?: () => void;
@@ -60,7 +60,11 @@ export const MakeOfferModal = NiceModal.create((props: MakeOfferModalProps) => {
             <span className="text-[#D1F608]">Offer</span>
           </DialogTitle>
           <div className="flex w-full items-start justify-between gap-20 px-5 pb-3">
-            <img src={tokenUri} alt="Token" className="size-56 flex-none rounded-md object-cover" />
+            <img
+              src={fromIpfs(tokenUri)}
+              alt="Token"
+              className="size-56 flex-none rounded-md object-cover"
+            />
 
             <div className="mt-10 flex flex-none flex-col items-start justify-start gap-6">
               <span className="text-start text-3xl font-bold">{tokenName}</span>

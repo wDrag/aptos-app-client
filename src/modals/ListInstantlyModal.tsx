@@ -3,6 +3,7 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useExchangeListInstantlyNFTMutation } from '@/hooks/mutations';
+import { fromIpfs } from '@/lib';
 
 interface ListInstantlyModalProps {
   onClose?: () => void;
@@ -45,7 +46,11 @@ export const ListInstantlyModal = NiceModal.create((props: ListInstantlyModalPro
             <span className="text-white">Instantly</span>
           </DialogTitle>
           <div className="flex w-full items-start justify-between gap-16 px-6 pb-3">
-            <img src={tokenUri} alt="Token" className="size-64 flex-none rounded-md object-cover" />
+            <img
+              src={fromIpfs(tokenUri)}
+              alt="Token"
+              className="size-64 flex-none rounded-md object-cover"
+            />
 
             <div className="flex flex-none flex-col items-start justify-start gap-4">
               <span className="text-start text-3xl font-bold">{tokenName}</span>

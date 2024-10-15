@@ -31,35 +31,31 @@ const HomePage = () => {
             <h3 className="text-base">Total Value Locked</h3>
             <div className="mt-2 flex items-center justify-center gap-3">
               <p className="font-prototype font-bold text-secondary">$1.12M</p>
-              <div className="size-8">
-                <CoinIcon />
-              </div>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center border-r-2 border-white px-4  pr-12">
             <h3 className="text-base">Total Volume</h3>
             <div className="mt-2 flex items-center justify-center gap-3">
               <p className="font-prototype text-3xl font-bold text-secondary">$7.94m</p>
-              <div className="size-8">
-                <CoinIcon />
-              </div>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center px-4">
             <h3 className="text-base">Total Liquidity</h3>
             <div className="mt-2 flex items-center justify-center gap-3">
               <p className="font-prototype text-3xl font-bold text-secondary">$417K</p>
-              <div className="size-8">
-                <CoinIcon />
-              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="my-4 mt-40 flex items-start justify-center gap-24 rounded-xl bg-card px-16 py-8 text-center font-prototype text-2xl text-white">
         <div className="flex flex-col items-center justify-center gap-2">
-          <p className="py-2">Reverse</p>
-          <p className="py-2 text-primary">APT</p>
+          <p className="py-2">Reserve</p>
+          <div className="flex items-center justify-center gap-2">
+            <p className="py-2 text-primary">APT</p>
+            <div className="size-8">
+              <CoinIcon />
+            </div>
+          </div>
         </div>
         <div className="flex flex-col items-center justify-center gap-2">
           <p className="py-2">Deposit APR</p>

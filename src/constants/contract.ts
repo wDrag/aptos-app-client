@@ -1,5 +1,5 @@
 export const CONTRACT_ADDRESS =
-  '0xe56bfd96c130be460bc962aca4c27e8e57e889a358ae713d86439ca531eabdb5';
+  '0xab52d87a53b87a0b604a701e8587f23373fc02347efb449f4380dec61bc0aaea';
 
 export const ORACLE_ADDRESS = '0xd37904ac357ea266e2c30cae3b6559f9d1222909f9b5781b0eaf1e1acd952e96';
 
@@ -71,6 +71,7 @@ export const CONTRACT_VIEWS: Record<string, `${string}::${string}::${string}`> =
   LP_GET_LENDER_INFORMATION: `${CONTRACT_ADDRESS}::lending_pool::get_lender_information`,
   LP_GET_MARKET_CONFIGURATION: `${CONTRACT_ADDRESS}::lending_pool::get_market_configuration`,
   FAM_GET_BALANCE: `${CONTRACT_ADDRESS}::fungible_asset_minter::get_balance`,
+  MC_GET_BALANCE: `${CONTRACT_ADDRESS}::mega_coin::get_balance`,
 };
 
 export const ORACLE_FUNCTIONS: Record<string, `${string}::${string}::${string}`> = {

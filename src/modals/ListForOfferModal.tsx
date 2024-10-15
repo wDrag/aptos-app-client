@@ -39,7 +39,7 @@ export const ListForOfferModal = NiceModal.create((props: ListForOfferModalProps
   return (
     <div className="flex w-[600px]">
       <Dialog open onOpenChange={closeModal}>
-        <DialogContent className="flex min-w-[680px] flex-col gap-6">
+        <DialogContent className="flex min-w-[840px] flex-col gap-6">
           <DialogTitle className="text-center text-3xl font-semibold">
             <span className="text-[#D1F608]">Listing</span>
           </DialogTitle>

@@ -38,9 +38,9 @@ export const ListInstantlyModal = NiceModal.create((props: ListInstantlyModalPro
   };
 
   return (
-    <div className="flex w-[600px]">
+    <div className="flex w-[720px]">
       <Dialog open onOpenChange={closeModal}>
-        <DialogContent className="flex min-w-[720px] flex-col gap-6">
+        <DialogContent className="flex min-w-[840px] flex-col gap-6">
           <DialogTitle className="text-center text-3xl font-semibold">
             <span className="text-[#A66AFE]">Sell </span>
             <span className="text-white">Instantly</span>

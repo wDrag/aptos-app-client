@@ -8,7 +8,7 @@ export const useGetMockAPTBalanceQuery = () => {
   const { account } = useWallet();
 
   return useQuery({
-    queryKey: [QUERY_KEYS.FAM_GET_BALANCE],
+    queryKey: [QUERY_KEYS.FAM_GET_BALANCE, account?.address],
     queryFn: async () => {
       const client = getApiClient();
 

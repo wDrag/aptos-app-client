@@ -126,17 +126,29 @@ const LendingPage = () => {
   const borrowMutation = useLendingPoolBorrowMutation();
   const repayMutation = useLendingPoolRepayMutation();
 
-  const handleBorrow = async () => {
-    await borrowMutation.mutateAsync({
-      amount: tryParseInt(borrowRepayAmount),
-    });
+  const handleBorrow = async ({ borrowAll }: { borrowAll?: boolean }) => {
+    if (borrowAll) {
+      await borrowMutation.mutateAsync({
+        amount: tryParseInt(userBorrowInformation.availableToBorrow),
+      });
+    } else {
+      await borrowMutation.mutateAsync({
+        amount: tryParseInt(borrowRepayAmount),
+      });
+    }
     await refetchAllData();
   };
 
-  const handleRepay = async () => {
-    await repayMutation.mutateAsync({
-      amount: tryParseInt(borrowRepayAmount),
-    });
+  const handleRepay = async ({ repayAll }: { repayAll?: boolean }) => {
+    if (repayAll) {
+      await repayMutation.mutateAsync({
+        amount: tryParseInt(userBorrowInformation.borrowAmount),
+      });
+    } else {
+      await repayMutation.mutateAsync({
+        amount: tryParseInt(borrowRepayAmount),
+      });
+    }
     await refetchAllData();
   };
 
@@ -473,13 +485,13 @@ const LendingPage = () => {
                   onValueChange(e, setBorrowRepayAmount);
                 }}
               />
-              <div className="mt-8 flex items-center justify-center">
+              <div className="mt-8 flex items-center justify-center gap-3">
                 <button
                   onClick={async () => {
                     if (borrowRepaySelector === 'borrow') {
-                      await handleBorrow();
+                      await handleBorrow({ borrowAll: false });
                     } else {
-                      await handleRepay();
+                      await handleRepay({ repayAll: false });
                     }
                   }}
                   className={cn(
@@ -488,6 +500,21 @@ const LendingPage = () => {
                   )}
                 >
                   {borrowRepaySelector === 'borrow' ? 'Borrow' : 'Repay'}
+                </button>
+                <button
+                  onClick={async () => {
+                    if (borrowRepaySelector === 'borrow') {
+                      await handleBorrow({ borrowAll: true });
+                    } else {
+                      await handleRepay({ repayAll: true });
+                    }
+                  }}
+                  className={cn(
+                    'rounded-lg  px-8 py-2 font-bold text-black',
+                    borrowRepaySelector === 'borrow' ? 'bg-primary' : 'bg-secondary'
+                  )}
+                >
+                  {borrowRepaySelector === 'borrow' ? 'Borrow All' : 'Repay All'}
                 </button>
               </div>
             </div>

@@ -25,8 +25,7 @@ const ExchangeBuyPage = () => {
   const { data: AllItemsNFTList = [dummyNFT] } = useGetExchangeAllOfferNFTQuery();
 
   return (
-    <div className="relative flex w-full flex-col">
-      <img src="/bg.png" alt="Background" className="absolute -z-10 min-h-screen w-screen" />
+    <div className="flex min-h-screen w-full flex-col bg-[url('/bg.png')] ">
       <div className="container mt-20 flex w-full flex-col p-10">
         <Tabs defaultValue={view} className="w-full">
           <TabsList className="mb-8 flex w-fit justify-start gap-2 rounded-xl bg-transparent">

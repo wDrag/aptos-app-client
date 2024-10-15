@@ -1,7 +1,18 @@
 import { useState } from 'react';
 
 import { CoinIcon } from '@/components/icons/coin';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
+import { collectionList } from '@/constants';
 import { useExchangeBuyWithDownPaymentMutation } from '@/hooks/mutations';
 import { useGetDigitalAssetTokenDataQuery } from '@/hooks/queries';
 import { cn, fromIpfs } from '@/lib';
@@ -102,14 +113,40 @@ const DownPaymentPage = () => {
             <div className="flex flex-col gap-2">
               <span className="text-xl font-semibold text-secondary">Collection Name</span>
               <div className="relative flex">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button className="absolute right-3 top-3">Select Collection</Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="max-h-72 w-full">
+                    <DropdownMenuLabel>Available Collection</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup
+                      value={collectionName}
+                      onValueChange={setCollectionName}
+                      className="flex max-h-56 flex-col overflow-scroll scrollbar-none"
+                    >
+                      {collectionList.map((collection) => (
+                        <DropdownMenuRadioItem
+                          className="flex cursor-pointer gap-4 !p-3 [&_.absolute]:hidden"
+                          key={collection.name}
+                          value={collection.name}
+                        >
+                          <img
+                            src={fromIpfs(collection.ipfsUri)}
+                            alt="collection"
+                            className="size-6 rounded-full object-cover"
+                          />
+                          <span className="text-lg text-white">{collection.name}</span>
+                        </DropdownMenuRadioItem>
+                      ))}
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <Input
                   value={collectionName}
                   disabled
-                  onChange={(e) => {
-                    setCollectionName(e.target.value);
-                  }}
                   className={cn(
-                    'rounded-xl border bg-[#27272A] p-8 shadow-lg shadow-primary text-2xl text-white'
+                    'rounded-xl disabled:opacity-100 border bg-[#27272A] p-8 shadow-lg shadow-primary text-2xl text-white'
                   )}
                 />
               </div>
@@ -138,7 +175,10 @@ const DownPaymentPage = () => {
           </button>
           <button
             className="rounded-lg bg-secondary px-8 py-2 font-bold text-black "
-            onClick={() => setSelectedStep('3')}
+            onClick={() => {
+              if (!tokenData?.tokenName) return;
+              setSelectedStep('3');
+            }}
           >
             Continue
           </button>
@@ -186,7 +226,7 @@ const DownPaymentPage = () => {
             className="rounded-lg bg-secondary px-8 py-2 font-bold text-black "
             onClick={handleDownPayment}
           >
-            Continue
+            Buy
           </button>
         </div>
       </div>

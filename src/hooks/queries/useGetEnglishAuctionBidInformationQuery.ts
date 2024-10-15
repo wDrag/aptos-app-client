@@ -27,6 +27,8 @@ export const useGetEnglishAuctionBidInformationQuery = (props: IGetBidInformatio
 
       const responses = await Promise.allSettled(
         tokenInfos.map(async (tokenInfo) => {
+          if (tokenInfo.collectionName === 'Megaloandon') throw new Error('boundNFT');
+
           const { data: response } = await client.post(
             '/view',
             {
@@ -67,6 +69,7 @@ export const useGetEnglishAuctionBidInformationQuery = (props: IGetBidInformatio
           };
         })
       );
+
       const fulfilledResponses = responses.map((response) => {
         if (response.status === 'fulfilled') {
           return response.value;

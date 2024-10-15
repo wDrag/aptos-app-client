@@ -26,6 +26,7 @@ export const useGetDigitalAssetTokensDataQuery = (props: IGetTokenDataProps) => 
       const client = getApiClient();
       const responses = await Promise.allSettled(
         tokenInfos.map(async (tokenInfo) => {
+          if (tokenInfo.collectionName === 'Megaloandon') throw new Error('boundNFT');
           const { data: response } = await client.post(
             '/view',
             {

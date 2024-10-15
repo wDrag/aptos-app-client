@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { CoinIcon } from '@/components/icons/coin';
 import { APTInput } from '@/components/shared';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { QUERY_KEYS } from '@/constants';
 import {
   useEnglishAuctionInitializeWithBidMutation,
@@ -104,10 +104,10 @@ export const PlaceBidModal = NiceModal.create((props: PlaceBidModalProps) => {
   return (
     <Dialog open onOpenChange={closeModal}>
       <DialogContent className="min-w-[960px] rounded-2xl border-b-8 border-primary bg-card p-8 text-lg text-white">
-        <div className="">
-          <h3 className="text-center text-3xl font-semibold">
+        <div>
+          <DialogTitle className="text-center text-3xl font-semibold">
             Place <span className="text-secondary"> Bid</span>
-          </h3>
+          </DialogTitle>
           <p className="mt-1 text-center">
             The first bidder will receive the first bid bonus if the borrower redeems his debt
             within <span className="font-bold">24 hours</span>

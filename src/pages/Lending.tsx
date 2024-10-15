@@ -149,7 +149,7 @@ const LendingPage = () => {
             <div className="flex items-center justify-start gap-3">
               <p className="text-3xl text-primary">
                 {' '}
-                {userBorrowInformation.totalCollateralAmount}
+                {fromDecimals(userBorrowInformation.totalCollateralAmount, 6)}
               </p>
               <div className="size-8">
                 <CoinIcon />
@@ -411,7 +411,10 @@ const LendingPage = () => {
                 <div className="flex flex-col items-center justify-start gap-2 text-xl">
                   <p className="text-center "> Borrowed amount</p>
                   <div className="flex items-center justify-start gap-2">
-                    <p className="font-bold text-primary"> {userBorrowInformation.borrowAmount}</p>
+                    <p className="font-bold text-primary">
+                      {' '}
+                      {fromDecimals(userBorrowInformation.borrowAmount, 6)}
+                    </p>
                     <div className="size-8">
                       <CoinIcon />
                     </div>
@@ -428,7 +431,7 @@ const LendingPage = () => {
                   <p className="text-center ">
                     {'Health Factor: '}
                     <span className="font-bold text-secondary">
-                      {userBorrowInformation.healthFactor}
+                      {fromDecimals(userBorrowInformation.healthFactor, 6)}
                     </span>
                   </p>
                 </div>

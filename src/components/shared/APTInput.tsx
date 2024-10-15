@@ -2,7 +2,7 @@ import { HTMLInputTypeAttribute, useState } from 'react';
 
 import { Input } from '@/components/ui/input';
 import { useGetMockAPTBalanceQuery } from '@/hooks/queries';
-import { cn } from '@/lib';
+import { cn, fromDecimals } from '@/lib';
 
 type APTInputProps = {
   value: string;
@@ -15,7 +15,7 @@ type APTInputProps = {
 export const APTInput = (props: APTInputProps) => {
   const { value, onChange, className, type } = props;
   const [firstRender, setFirstRender] = useState(true);
-  const { data: accountBalance = 100 } = useGetMockAPTBalanceQuery();
+  const { data: accountBalance = '100' } = useGetMockAPTBalanceQuery();
 
   return (
     <div
@@ -26,7 +26,9 @@ export const APTInput = (props: APTInputProps) => {
     >
       <div className="flex w-full items-center justify-between gap-2 ">
         <span className="text-lg text-white">Amount</span>
-        <span className="text-lg text-white">Balance: {accountBalance}</span>
+        <span className="text-lg text-white">
+          Balance: {fromDecimals(parseFloat(accountBalance), 6)}
+        </span>
       </div>
       <div className="flex w-full items-center justify-between gap-2 ">
         <Input

@@ -521,7 +521,7 @@ const LendingPage = () => {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-10 text-xl">
+        <div className="mt-16 flex flex-col gap-20 text-xl">
           <h2 className="text-center font-prototype text-5xl font-semibold">Your Collaterals</h2>
           <div className="grid grid-cols-4 gap-12">
             {collaterals.map((collateral) => (

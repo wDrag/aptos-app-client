@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
 import { Suspense, lazy } from 'react';
 import { Outlet } from 'react-router';
 import { createBrowserRouter } from 'react-router-dom';
@@ -24,7 +23,6 @@ const AppLayout = () => {
       <Suspense fallback={<LoadingPage />}>
         <Outlet />
       </Suspense>
-      <Analytics />
     </div>
   );
 };

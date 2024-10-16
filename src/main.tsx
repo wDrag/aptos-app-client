@@ -1,5 +1,6 @@
 import NiceModal from '@ebay/nice-modal-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Analytics } from '@vercel/analytics/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <NiceModal.Provider>
               <RouterProvider router={appRouter} />
               <Toaster />
+              <Analytics />
             </NiceModal.Provider>
           </WalletProvider>
         </AutoConnectProvider>

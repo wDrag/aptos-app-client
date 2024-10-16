@@ -14,8 +14,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { collectionList } from '@/constants';
 import { useExchangeBuyWithDownPaymentMutation } from '@/hooks/mutations';
-import { useGetDigitalAssetTokenDataQuery } from '@/hooks/queries';
-import { cn, fromIpfs } from '@/lib';
+import {
+  useGetDigitalAssetTokenDataQuery,
+  useGetOracleDownPaymentPriceQuery,
+} from '@/hooks/queries';
+import { cn, formatNumber, fromDecimals, fromIpfs } from '@/lib';
 
 const DownPaymentPage = () => {
   const [selectedMarket, setSelectedMarket] = useState<string>('Blue Move');
@@ -39,6 +42,12 @@ const DownPaymentPage = () => {
       tokenId,
     });
   };
+
+  const { data: downPaymentPrice = 400000000 } = useGetOracleDownPaymentPriceQuery({
+    ownerAddress: '',
+    collectionName,
+    tokenId,
+  });
 
   return (
     <div className="min-h-screen w-full bg-[url('/bg.png')] bg-cover bg-center p-32 text-lg">
@@ -220,7 +229,9 @@ const DownPaymentPage = () => {
               <div className="mt-4">
                 <p className="text-center font-light">Down payment</p>
                 <div className="mt-2 flex items-center justify-center gap-3">
-                  <p className="text-3xl font-bold text-primary">2.3</p>
+                  <p className="text-3xl font-bold text-primary">
+                    {formatNumber(fromDecimals(downPaymentPrice, 8))}
+                  </p>
                   <div className="size-8">
                     <CoinIcon />
                   </div>

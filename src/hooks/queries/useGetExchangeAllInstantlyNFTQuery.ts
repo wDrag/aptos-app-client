@@ -10,7 +10,7 @@ export const useGetExchangeAllInstantlyNFTQuery = () => {
   const { data: numberOfInstantlyNFT, isLoading: isLoadingNumber } =
     useGetExchangeNumbersInstantlyNFTQuery();
 
-  const parsedNumberOfInstantlyNFT = numberOfInstantlyNFT ? parseInt(numberOfInstantlyNFT[0]) : 0;
+  const parsedNumberOfInstantlyNFT = numberOfInstantlyNFT ? parseInt(numberOfInstantlyNFT) : 0;
 
   const indexes = Array.from(Array(parsedNumberOfInstantlyNFT).keys(), (i) => i.toString());
 

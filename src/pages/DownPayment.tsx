@@ -230,7 +230,7 @@ const DownPaymentPage = () => {
                 <p className="text-center font-light">Down payment</p>
                 <div className="mt-2 flex items-center justify-center gap-3">
                   <p className="text-3xl font-bold text-primary">
-                    {formatNumber(fromDecimals(downPaymentPrice, 8))}
+                    {formatNumber(fromDecimals(downPaymentPrice, 6))}
                   </p>
                   <div className="size-8">
                     <CoinIcon />

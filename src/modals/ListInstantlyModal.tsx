@@ -3,7 +3,7 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useExchangeListInstantlyNFTMutation } from '@/hooks/mutations';
-import { fromIpfs } from '@/lib';
+import { formatNumber, fromDecimals, fromIpfs } from '@/lib';
 
 interface ListInstantlyModalProps {
   onClose?: () => void;
@@ -59,7 +59,9 @@ export const ListInstantlyModal = NiceModal.create((props: ListInstantlyModalPro
                 <span className="text-2xl font-light">Receive</span>
 
                 <div className="flex w-full items-center justify-center gap-1 text-[#A66AFE]">
-                  <span className="text-4xl">{listInstantlyPrice}</span>
+                  <span className="text-4xl">
+                    {formatNumber(fromDecimals(listInstantlyPrice, 8))}
+                  </span>
                   <img src="/APT.png" alt="APT" className="mx-1 size-8 rounded-full" />
                 </div>
 

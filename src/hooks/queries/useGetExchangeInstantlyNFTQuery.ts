@@ -13,7 +13,7 @@ export const useGetExchangeInstantlyNFTQuery = (props: IGetInstantlyNFTProps) =>
     queryKey: [QUERY_KEYS.EX_GET_INSTANTLY_NFT, indexes],
     queryFn: async () => {
       const client = getApiClient();
-      const responses = await Promise.all(
+      const responses = await Promise.allSettled(
         indexes.map(async (index) => {
           const { data: response } = await client.post(
             '/view',
@@ -31,7 +31,15 @@ export const useGetExchangeInstantlyNFTQuery = (props: IGetInstantlyNFTProps) =>
           return response;
         })
       );
-      return responses;
+
+      const fulfilledResponses = responses.map((response) => {
+        if (response.status === 'fulfilled') {
+          return response.value;
+        }
+        return null;
+      });
+
+      return fulfilledResponses.filter((response) => response !== null);
     },
   });
 };

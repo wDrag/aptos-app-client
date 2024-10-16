@@ -60,7 +60,7 @@ export const BuyingInstantlyNFTCard = (props: BuyingInstantlyNFTCardProps) => {
           <div className="flex items-center gap-1">
             <img src="/APT.png" alt="APT" className="size-4 rounded-full" />
             <span className="text-start text-sm text-white">
-              {fromDecimals(downPaymentPrice, 8)}
+              {fromDecimals(downPaymentPrice, 6)}
             </span>
           </div>
           <Button
@@ -87,7 +87,7 @@ export const BuyingInstantlyNFTCard = (props: BuyingInstantlyNFTCardProps) => {
           <span className="text-end text-sm text-white/80">Full Payment</span>
           <div className="flex items-end gap-1">
             <img src="/APT.png" alt="APT" className="size-4 rounded-full" />
-            <span className="text-end text-sm text-white">{fromDecimals(fullPaymentPrice, 8)}</span>
+            <span className="text-end text-sm text-white">{fromDecimals(fullPaymentPrice, 6)}</span>
           </div>
           <Button
             onClick={() => {

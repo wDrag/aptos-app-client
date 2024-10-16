@@ -6,7 +6,7 @@ import {
   useGetOracleDownPaymentPriceQuery,
   useGetOracleFullPaymentPriceQuery,
 } from '@/hooks/queries';
-import { cn, fromIpfs } from '@/lib';
+import { cn, fromDecimals, fromIpfs } from '@/lib';
 import { DownPaymentModal, FullPaymentModal } from '@/modals';
 
 interface BuyingInstantlyNFTCardProps {
@@ -21,13 +21,13 @@ interface BuyingInstantlyNFTCardProps {
 export const BuyingInstantlyNFTCard = (props: BuyingInstantlyNFTCardProps) => {
   const { tokenName, tokenId, tokenUri, collectionName, ownerAddress, className } = props;
 
-  const { data: downPaymentPrice = 1.4 } = useGetOracleDownPaymentPriceQuery({
+  const { data: downPaymentPrice = 4000000 } = useGetOracleDownPaymentPriceQuery({
     ownerAddress,
     collectionName,
     tokenId,
   });
 
-  const { data: fullPaymentPrice = 3.5 } = useGetOracleFullPaymentPriceQuery({
+  const { data: fullPaymentPrice = 10000000 } = useGetOracleFullPaymentPriceQuery({
     ownerAddress,
     collectionName,
     tokenId,
@@ -56,7 +56,9 @@ export const BuyingInstantlyNFTCard = (props: BuyingInstantlyNFTCardProps) => {
           <span className="text-start text-sm text-white/80">Down Payment</span>
           <div className="flex items-center gap-1">
             <img src="/APT.png" alt="APT" className="size-4 rounded-full" />
-            <span className="text-start text-sm text-white">{downPaymentPrice}</span>
+            <span className="text-start text-sm text-white">
+              {fromDecimals(downPaymentPrice, 6)}
+            </span>
           </div>
           <Button
             onClick={() => {
@@ -82,7 +84,7 @@ export const BuyingInstantlyNFTCard = (props: BuyingInstantlyNFTCardProps) => {
           <span className="text-end text-sm text-white/80">Full Payment</span>
           <div className="flex items-end gap-1">
             <img src="/APT.png" alt="APT" className="size-4 rounded-full" />
-            <span className="text-end text-sm text-white">{fullPaymentPrice}</span>
+            <span className="text-end text-sm text-white">{fromDecimals(fullPaymentPrice, 6)}</span>
           </div>
           <Button
             onClick={() => {

@@ -3,7 +3,7 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useExchangeBuyWithFullPaymentMutation } from '@/hooks/mutations';
-import { fromIpfs } from '@/lib';
+import { fromDecimals, fromIpfs } from '@/lib';
 
 interface FullPaymentModalProps {
   onClose?: () => void;
@@ -58,7 +58,7 @@ export const FullPaymentModal = NiceModal.create((props: FullPaymentModalProps) 
                 <span className="text-2xl font-light">Full Payment</span>
 
                 <div className="flex w-full items-center justify-center gap-1 text-[#A66AFE]">
-                  <span className="text-4xl">{fullPaymentPrice}</span>
+                  <span className="text-4xl">{fromDecimals(fullPaymentPrice, 6)}</span>
                   <img src="/APT.png" alt="APT" className="mx-1 size-8 rounded-full" />
                 </div>
               </div>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { CoinIcon } from '@/components/icons/coin';
-import { APTInput } from '@/components/shared';
+import { APTInput, ShowcaseCard } from '@/components/shared';
 import { QUERY_KEYS } from '@/constants';
 import {
   useLendingPoolBorrowMutation,
@@ -154,7 +154,7 @@ const LendingPage = () => {
 
   return (
     <div>
-      <div className="min-h-screen w-full bg-[url('/bg.png')] bg-cover bg-center px-32 pt-28 text-lg">
+      <div className="relative min-h-screen w-full bg-[url('/bg.png')] bg-cover bg-center bg-repeat-y object-cover px-32 pt-28 text-lg">
         <div className="grid grid-cols-4 gap-8 font-prototype text-xl tracking-wider text-white ">
           <div className="col-span-1 h-full rounded-xl bg-[#2E2733] p-4">
             <div className="flex items-center justify-start gap-3">
@@ -520,6 +520,26 @@ const LendingPage = () => {
             </div>
           </div>
         </div>
+
+        <div className="mt-10 flex flex-col gap-10 text-xl">
+          <h2 className="text-center font-prototype text-5xl font-semibold">Your Collaterals</h2>
+          <div className="grid grid-cols-4 gap-12">
+            {collaterals.map((collateral) => (
+              <div
+                key={collateral.collectionName + collateral.tokenId}
+                className="col-span-1 flex justify-center"
+              >
+                <ShowcaseCard
+                  collectionName={collateral.collectionName}
+                  tokenName={collateral.tokenName}
+                  tokenId={collateral.tokenId}
+                  tokenUri={collateral.tokenUri}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="h-10" />
       </div>
     </div>
   );

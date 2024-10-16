@@ -13,7 +13,7 @@ const HomePage = () => {
         <div className="absolute -right-20 top-20 size-[720px] rounded-full bg-[radial-gradient(#A528FF_0%,_#A528FF30_40%)] blur-[320px] " />
         <div className="grid grid-cols-3 items-center">
           <div className="col-span-2 text-white">
-            <h1 className="my-1 font-prototype text-[60px] font-semibold leading-[95px]">
+            <h1 className="my-1 font-prototype text-[60px] leading-[95px]">
               The pioneer <span className="tracking-wider text-primary">NFT</span>
             </h1>
             <h5 className="my-1 font-prototype text-[60px] leading-[76px]">

@@ -2,7 +2,7 @@ import NiceModal from '@ebay/nice-modal-react';
 
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
-import { cn, fromIpfs } from '@/lib';
+import { cn, fromIpfs, getNameWithoutId } from '@/lib';
 import { MakeOfferModal } from '@/modals';
 
 interface OfferNFTCardProps {
@@ -32,7 +32,10 @@ export const OfferNFTCard = (props: OfferNFTCardProps) => {
         />
       </AspectRatio>
       <div className="flex flex-col items-start gap-2 px-4">
-        <span className="text-center text-xl font-bold text-white">{tokenName}</span>
+        <span className="text-start text-xl font-bold text-white">
+          {getNameWithoutId(tokenName)}
+          <br />#{tokenId}
+        </span>
       </div>
 
       <div className="flex w-full flex-col px-4">

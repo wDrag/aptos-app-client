@@ -4,7 +4,7 @@ import NiceModal from '@ebay/nice-modal-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
 import { useGetOracleFloorPriceQuery } from '@/hooks/queries';
-import { HTML_SPACE, cn, fromIpfs } from '@/lib';
+import { HTML_SPACE, cn, formatNumber, fromDecimals, fromIpfs, getNameWithoutId } from '@/lib';
 import { ListForOfferModal, ListInstantlyModal } from '@/modals';
 
 interface SellingNFTCardProps {
@@ -41,7 +41,10 @@ export const SellingNFTCard = (props: SellingNFTCardProps) => {
         />
       </AspectRatio>
       <div className="flex flex-col items-start gap-2 px-4">
-        <span className="text-center text-xl font-bold text-white">{tokenName}</span>
+        <span className="text-start text-xl font-bold text-white">
+          {getNameWithoutId(tokenName)}
+          <br />#{tokenId}
+        </span>
       </div>
 
       <div className="flex w-full flex-col items-start justify-center gap-2 px-4">
@@ -49,7 +52,7 @@ export const SellingNFTCard = (props: SellingNFTCardProps) => {
           <span className="text-base text-white/60">Sell instantly for</span>
           <span className="text-start text-base text-white">
             {HTML_SPACE}
-            {listInstantlyPrice} APT
+            {formatNumber(fromDecimals(listInstantlyPrice, 8))}
           </span>
           <img src="/APT.png" alt="APT" className="mx-1 size-4 rounded-full" />
         </div>

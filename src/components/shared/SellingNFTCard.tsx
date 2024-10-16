@@ -20,7 +20,7 @@ export const SellingNFTCard = (props: SellingNFTCardProps) => {
 
   const { tokenName, collectionName, tokenId, tokenUri, className } = props;
 
-  const { data: listInstantlyPrice = 3 } = useGetOracleFloorPriceQuery({
+  const { data: listInstantlyPrice = 1000000000 } = useGetOracleFloorPriceQuery({
     ownerAddress: account?.address || '',
     collectionName,
     tokenId,

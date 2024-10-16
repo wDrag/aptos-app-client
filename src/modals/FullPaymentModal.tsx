@@ -39,7 +39,7 @@ export const FullPaymentModal = NiceModal.create((props: FullPaymentModalProps) 
   return (
     <div className="flex w-[600px]">
       <Dialog open onOpenChange={closeModal}>
-        <DialogContent className="flex min-w-[760px] flex-col gap-6">
+        <DialogContent className="flex min-w-[840px] flex-col gap-6">
           <DialogTitle className="text-center text-3xl font-semibold">
             <span className="text-[#A66AFE]">Full </span>
             <span className="text-white">Payment</span>
@@ -58,7 +58,7 @@ export const FullPaymentModal = NiceModal.create((props: FullPaymentModalProps) 
                 <span className="text-2xl font-light">Full Payment</span>
 
                 <div className="flex w-full items-center justify-center gap-1 text-[#A66AFE]">
-                  <span className="text-4xl">{fromDecimals(fullPaymentPrice, 6)}</span>
+                  <span className="text-4xl">{fromDecimals(fullPaymentPrice, 8)}</span>
                   <img src="/APT.png" alt="APT" className="mx-1 size-8 rounded-full" />
                 </div>
               </div>

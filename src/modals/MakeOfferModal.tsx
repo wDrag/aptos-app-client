@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useExchangeAddOfferMutation } from '@/hooks/mutations';
 import { useGetExchangeAllOfferQuery, useGetOracleFloorPriceQuery } from '@/hooks/queries';
-import { fromIpfs, onValueChange, toShortAddress, tryParseInt } from '@/lib';
+import { fromDecimals, fromIpfs, onValueChange, toShortAddress, tryParseInt } from '@/lib';
 
 interface MakeOfferModalProps {
   onClose?: () => void;

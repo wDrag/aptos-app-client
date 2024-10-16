@@ -1,9 +1,9 @@
 export const CONTRACT_ADDRESS =
   '0xab52d87a53b87a0b604a701e8587f23373fc02347efb449f4380dec61bc0aaea';
 
-export const ORACLE_ADDRESS = '0xd37904ac357ea266e2c30cae3b6559f9d1222909f9b5781b0eaf1e1acd952e96';
+export const ORACLE_ADDRESS = '0x9ecc4f0af6934c425dfd8c83f34cc8895bc1b82bd1b3adccfdb416ecff697675';
 
-export const ADMIN_ADDRESS = '0x415d32b0805cc1ad35f89b46a9f9dc72660651a48ebcd0f3e811583ff476eb85';
+export const ADMIN_ADDRESS = '0x182e07cd25b66aedcddfec0317c23a93aed8d7d44347582d2c7dde8283452985';
 
 export const CONTRACT_FUNCTIONS: Record<string, `${string}::${string}::${string}`> = {
   DA_CREATE_COLLECTION: `${CONTRACT_ADDRESS}::digital_asset::create_collection`,

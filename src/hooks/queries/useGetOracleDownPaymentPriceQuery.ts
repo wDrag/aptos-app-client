@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getApiClient } from '@/apis';
-import { ORACLE_FUNCTIONS, QUERY_KEYS } from '@/constants';
+import { ADMIN_ADDRESS, ORACLE_FUNCTIONS, QUERY_KEYS } from '@/constants';
 
 interface IGetOracleDownPaymentPriceProps {
   ownerAddress: string;
@@ -22,7 +22,7 @@ export const useGetOracleDownPaymentPriceQuery = (props: IGetOracleDownPaymentPr
         {
           function: ORACLE_FUNCTIONS.ORACLE_GET_DOWN_PAYMENT_PRICE,
           type_arguments: [],
-          arguments: [ownerAddress, collectionName, tokenId],
+          arguments: [ADMIN_ADDRESS, collectionName, tokenId],
         },
         {
           headers: {

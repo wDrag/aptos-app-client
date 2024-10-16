@@ -30,7 +30,7 @@ export const useGetEnglishAuctionCheckIfFirstBidQuery = (props: IGetBidInformati
         }
       );
 
-      return response[0] === 'true';
+      return response[0] === true;
     },
   });
 };

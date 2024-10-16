@@ -153,7 +153,9 @@ export const PlaceBidModal = NiceModal.create((props: PlaceBidModalProps) => {
                 </div>
               </div>
               <div className="mt-4 rounded-2xl border-2 border-primary px-4 py-2 text-center font-semibold text-white">
-                The bid amount must be greater than the debt amount
+                {isFirstBid
+                  ? 'The first bid must be greater than current debt amount'
+                  : 'The bid amount must be greater than the previous bid + 1% debt'}
               </div>
               <div className="mt-4 flex items-center justify-between">
                 <div className="flex flex-col items-center justify-start gap-2 ">

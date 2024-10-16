@@ -3,7 +3,7 @@ import NiceModal from '@ebay/nice-modal-react';
 
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
-import { useGetOracleFloorPriceQuery } from '@/hooks/queries';
+import { useGetOracleFullPaymentPriceQuery } from '@/hooks/queries';
 import { HTML_SPACE, cn, formatNumber, fromDecimals, fromIpfs, getNameWithoutId } from '@/lib';
 import { ListForOfferModal, ListInstantlyModal } from '@/modals';
 
@@ -20,7 +20,7 @@ export const SellingNFTCard = (props: SellingNFTCardProps) => {
 
   const { tokenName, collectionName, tokenId, tokenUri, className } = props;
 
-  const { data: listInstantlyPrice = 1000000000 } = useGetOracleFloorPriceQuery({
+  const { data: listInstantlyPrice = 1000000000 } = useGetOracleFullPaymentPriceQuery({
     ownerAddress: account?.address || '',
     collectionName,
     tokenId,

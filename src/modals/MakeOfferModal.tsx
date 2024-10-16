@@ -73,7 +73,7 @@ export const MakeOfferModal = NiceModal.create((props: MakeOfferModalProps) => {
                 <span className="text-2xl font-light">Floor Price</span>
 
                 <div className="flex w-full items-center justify-center gap-1 text-[#D1F608]">
-                  <span className="text-4xl">{floorPrice}</span>
+                  <span className="text-4xl">{fromDecimals(floorPrice, 8)}</span>
                   <img src="/APT.png" alt="APT" className="mx-1 size-8 rounded-full" />
                 </div>
               </div>
@@ -89,7 +89,7 @@ export const MakeOfferModal = NiceModal.create((props: MakeOfferModalProps) => {
                       <div className="flex w-full flex-col items-start ">
                         <span className="text-2xl font-light text-white/70">Price</span>
                         <div className="flex items-center justify-center gap-1 ">
-                          <span className="text-2xl text-white">{floorPrice}</span>
+                          <span className="text-2xl text-white">{fromDecimals(floorPrice, 8)}</span>
                           <img src="/APT.png" alt="APT" className="mx-1 size-6 rounded-full" />
                         </div>
                       </div>

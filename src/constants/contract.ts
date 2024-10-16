@@ -1,7 +1,7 @@
 export const CONTRACT_ADDRESS =
-  '0xab52d87a53b87a0b604a701e8587f23373fc02347efb449f4380dec61bc0aaea';
+  '0x498afaeb1ae2ff1d077516cb588ad9adaff60c04b577904cfd0d3cfe58c98eef';
 
-export const ORACLE_ADDRESS = '0x9ecc4f0af6934c425dfd8c83f34cc8895bc1b82bd1b3adccfdb416ecff697675';
+export const ORACLE_ADDRESS = '0x498afaeb1ae2ff1d077516cb588ad9adaff60c04b577904cfd0d3cfe58c98eef';
 
 export const ADMIN_ADDRESS = '0x182e07cd25b66aedcddfec0317c23a93aed8d7d44347582d2c7dde8283452985';
 
@@ -77,7 +77,7 @@ export const CONTRACT_VIEWS: Record<string, `${string}::${string}::${string}`> =
 };
 
 export const ORACLE_FUNCTIONS: Record<string, `${string}::${string}::${string}`> = {
-  ORACLE_GET_FLOOR_PRICE: `${ORACLE_ADDRESS}::oracle::get_floor_price`,
-  ORACLE_GET_FULL_PAYMENT_PRICE: `${ORACLE_ADDRESS}::oracle::get_full_payment_price`,
-  ORACLE_GET_DOWN_PAYMENT_PRICE: `${ORACLE_ADDRESS}::oracle::get_down_payment_price`,
+  ORACLE_GET_FLOOR_PRICE: `${ORACLE_ADDRESS}::nft_oracle::get_floor_price`,
+  ORACLE_GET_FULL_PAYMENT_PRICE: `${ORACLE_ADDRESS}::nft_oracle::get_full_payment_price`,
+  ORACLE_GET_DOWN_PAYMENT_PRICE: `${ORACLE_ADDRESS}::nft_oracle::get_down_payment_price`,
 };
